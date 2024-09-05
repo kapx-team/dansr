@@ -1,0 +1,4 @@
+{
+    "*.{ts,js,tsx,jsx}": ["eslint --fix", "eslint"],
+    "*.{ts,js,tsx,jsx,css,md}": "prettier --ignore-unknown --write"
+}

@@ -1,0 +1,4 @@
+setup:
+    - project: dansr
+      config: dev_personal
+      path: .

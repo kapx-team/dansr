@@ -1,0 +1,13 @@
+{
+    "name": "common-types",
+    "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+    "sourceRoot": "libs/common/types/src",
+    "projectType": "library",
+    "targets": {
+        "lint": {
+            "executor": "@nx/eslint:lint",
+            "outputs": ["{options.outputFile}"]
+        }
+    },
+    "tags": ["type:types scope:all"]
+}

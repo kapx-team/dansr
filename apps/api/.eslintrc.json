@@ -1,0 +1,61 @@
+{
+    "extends": [
+        "plugin:@nx/react",
+        "next",
+        "next/core-web-vitals",
+        "../../.eslintrc.json"
+    ],
+    "ignorePatterns": ["!**/*", ".next/**/*"],
+    "overrides": [
+        {
+            "files": ["*.ts"],
+            "extends": ["plugin:@nx/typescript"],
+            "rules": {
+                "@nx/workspace-require-return-with-api-response": "error"
+            }
+        },
+        {
+            "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+            "rules": {
+                "@next/next/no-html-link-for-pages": ["error", "apps/api/pages"]
+            }
+        },
+        {
+            "files": ["*.ts", "*.tsx"],
+            "extends": ["plugin:@nx/typescript"],
+            "rules": {
+                "@typescript-eslint/explicit-module-boundary-types": "off",
+                "@nx/enforce-module-boundaries": [
+                    "error",
+                    {
+                        "enforceBuildableLibDependency": true,
+                        "allow": [],
+                        "depConstraints": [
+                            {
+                                "sourceTag": "*",
+                                "onlyDependOnLibsWithTags": ["*"]
+                            }
+                        ]
+                    }
+                ],
+                "@typescript-eslint/no-extra-semi": "error",
+                "no-extra-semi": "off"
+            }
+        },
+        {
+            "files": ["*.js", "*.jsx"],
+            "extends": ["plugin:@nx/javascript"],
+            "rules": {
+                "@typescript-eslint/no-extra-semi": "error",
+                "no-extra-semi": "off"
+            }
+        },
+        {
+            "files": ["*.spec.ts", "*.spec.tsx", "*.spec.js", "*.spec.jsx"],
+            "env": {
+                "jest": true
+            },
+            "rules": {}
+        }
+    ]
+}

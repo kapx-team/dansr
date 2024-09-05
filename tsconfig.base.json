@@ -1,0 +1,43 @@
+{
+    "compileOnSave": false,
+    "compilerOptions": {
+        "rootDir": ".",
+        "sourceMap": true,
+        "declaration": false,
+        "moduleResolution": "node",
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "importHelpers": true,
+        "target": "es2015",
+        "module": "esnext",
+        "lib": ["es2020", "dom"],
+        "skipLibCheck": true,
+        "skipDefaultLibCheck": true,
+        "baseUrl": ".",
+        "paths": {
+            "@dansr/api-env": ["libs/api/env/src/index.ts"],
+            "@dansr/api-services": ["libs/api/services/src/index.ts"],
+            "@dansr/api-services/*": ["libs/api/services/src/lib/*"],
+            "@dansr/api-types": ["libs/api/types/src/index.ts"],
+            "@dansr/api-utils": ["libs/api/utils/src/index.ts"],
+            "@dansr/api-utils/*": ["libs/api/utils/src/lib/*"],
+            "@dansr/common-assets": ["libs/common/assets/src/index.ts"],
+            "@dansr/common-constants": ["libs/common/constants/src/index.ts"],
+            "@dansr/common-db": ["libs/common/db/src/index.ts"],
+            "@dansr/common-emails": ["libs/common/emails/src/index.ts"],
+            "@dansr/common-emails/server": ["libs/common/emails/src/server.ts"],
+            "@dansr/common-types": ["libs/common/types/src/index.ts"],
+            "@dansr/common-ui": ["libs/common/ui/src/index.ts"],
+            "@dansr/common-ui/server": ["libs/common/ui/src/server.ts"],
+            "@dansr/common-utils": ["libs/common/utils/src/index.ts"],
+            "@dansr/common-validators": ["libs/common/validators/src/index.ts"],
+            "@dansr/web-env": ["libs/web/env/src/index.ts"],
+            "@dansr/web-hooks": ["libs/web/hooks/src/index.ts"],
+            "@dansr/web-store": ["libs/web/store/src/index.ts"],
+            "@dansr/web-ui": ["libs/web/ui/src/index.ts"],
+            "@dansr/web-ui/server": ["libs/web/ui/src/server.ts"],
+            "@dansr/web-utils": ["libs/web/utils/src/index.ts"]
+        }
+    },
+    "exclude": ["node_modules", "tmp"]
+}

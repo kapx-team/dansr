@@ -1,0 +1,18 @@
+{
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "eslint.validate": [
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact"
+    ],
+    "eslint.options": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+    },
+    "eslint.workingDirectories": [
+        {
+            "mode": "auto"
+        }
+    ],
+    "cSpell.words": ["cfsub", "commitlint", "crtr", "dansr", "datepicker"]
+}

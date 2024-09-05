@@ -1,0 +1,15 @@
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        "outDir": "../../../dist/out-tsc",
+        "declaration": true,
+        "types": ["node"]
+    },
+    "include": [
+        "src/**/*.ts",
+        "../services/src/lib/redis.ts",
+        "../services/src/lib/resend.ts",
+        "../../common/utils/src/lib/auth.ts"
+    ],
+    "exclude": ["src/**/*.spec.ts", "src/**/*.test.ts"]
+}
