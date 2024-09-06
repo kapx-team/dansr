@@ -1,35 +1,46 @@
 import type { DbIdPrefix } from "@dansr/common-constants";
 import { generateId } from "@dansr/common-utils";
-import { timestamp, varchar } from "drizzle-orm/mysql-core";
+import { mysqlEnum, timestamp, varchar } from "drizzle-orm/mysql-core";
 
-export const generateDbId = (prefix: DbIdPrefix) => {
+export function generateDbId(prefix: DbIdPrefix) {
     return `${prefix}_${generateId()}`;
-};
+}
 
-export const getDbIdLength = (prefix: DbIdPrefix) => {
+export function getDbIdLength(prefix: DbIdPrefix) {
     return prefix.length + 26;
-};
+}
 
-export const getCommonSchemaAttributes = (prefix: DbIdPrefix) => {
+export function getCommonSchemaAttributes(prefix: DbIdPrefix) {
     return {
-        id: varchar("id", { length: getDbIdLength(prefix) }).primaryKey(),
+        id: getDbIdColumn("id", prefix).primaryKey(),
         createdAt: timestamp("created_at").defaultNow().notNull(),
         updatedAt: timestamp("updated_at").onUpdateNow(),
     };
-};
+}
 
-export const getDbIdColumn = (name: string, prefix: DbIdPrefix) => {
+export function getDbIdColumn(name: string, prefix: DbIdPrefix) {
     return varchar(name, { length: getDbIdLength(prefix) });
-};
+}
 
-export const getDbWalletColumn = () => {
+export function getDbWalletColumn() {
     return varchar("wallet", { length: 44 });
-};
+}
 
-export const getDbNameColumn = () => {
+export function getDbNameColumn() {
     return varchar("name", { length: 50 });
-};
+}
 
-export const getDbEmailColumn = () => {
+export function getDbEmailColumn() {
     return varchar("email", { length: 40 });
-};
+}
+
+export function getMysqlEnumFromConstants<
+    ConstantsType extends Record<string, string>,
+>({ constants, columnName }: { constants: ConstantsType; columnName: string }) {
+    return mysqlEnum(
+        columnName,
+        Object.values(constants) as unknown as [string, ...string[]]
+    )
+        .notNull()
+        .$type<ConstantsType[keyof ConstantsType]>();
+}

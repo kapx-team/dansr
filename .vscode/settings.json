@@ -14,5 +14,12 @@
             "mode": "auto"
         }
     ],
-    "cSpell.words": ["cfsub", "commitlint", "crtr", "dansr", "datepicker"]
+    "cSpell.words": [
+        "cfsub",
+        "commitlint",
+        "crtr",
+        "dansr",
+        "datepicker",
+        "vreq"
+    ]
 }
