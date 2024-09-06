@@ -43,6 +43,9 @@ const envSchema = z.object({
     GCP_PROJECT_PRIVATE_KEY: z.string().min(1),
     GCP_PROJECT_CLIENT_EMAIL: z.string().min(1),
     GCP_PROJECT_BUCKET: z.string().min(1),
+
+    // JWT
+    JWT_SECRET: z.string().min(1),
 });
 
 export const apiEnv = parseEnv({

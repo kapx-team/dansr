@@ -7,7 +7,7 @@ export function generateDbId(prefix: DbIdPrefix) {
 }
 
 export function getDbIdLength(prefix: DbIdPrefix) {
-    return prefix.length + 26;
+    return prefix.length + 27;
 }
 
 export function getCommonSchemaAttributes(prefix: DbIdPrefix) {

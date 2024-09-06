@@ -1,13 +1,10 @@
+import { apiEnv } from "@dansr/api-env";
 import { applyRatelimit } from "@dansr/api-services/redis";
 import { getIp } from "@dansr/api-utils/ip";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
-const allowedOrigins = [
-    "http://localhost:3000",
-    "https://dansr.io",
-    "https://dev.dansr.io",
-];
+const allowedOrigins = ["https://dansr.io", "https://dev.dansr.io"];
 
 const CORS_CONFIG: { [key: string]: string } = {
     "Access-Control-Allow-Credentials": "true",
@@ -37,6 +34,10 @@ export default async function middleware(
 
     if (req.method === "OPTIONS") {
         res = NextResponse.json({ message: "ok" }, { status: 200 });
+    }
+
+    if (apiEnv.VERCEL_ENV === "development") {
+        allowedOrigins.push("http://localhost:3000");
     }
 
     if (!req.url.includes("actions")) {

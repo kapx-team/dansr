@@ -3,6 +3,7 @@ import type {
     contactFormSubmissionsTable,
     creatorsTable,
     usersTable,
+    userWalletSigninRequestsTable,
     verificationRequestsTable,
 } from "../schema";
 export * from "./extended";
@@ -25,4 +26,11 @@ export type SelectContactFormSubmission = InferSelectModel<
 >;
 export type InsertContactFormSubmission = InferInsertModel<
     typeof contactFormSubmissionsTable
+>;
+
+export type SelectUserWalletSigninRequest = InferSelectModel<
+    typeof userWalletSigninRequestsTable
+>;
+export type InsertUserWalletSigninRequest = InferInsertModel<
+    typeof userWalletSigninRequestsTable
 >;

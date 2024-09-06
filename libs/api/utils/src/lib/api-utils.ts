@@ -118,7 +118,11 @@ export class ApiResponseHandler {
         );
     };
 
-    success(data: unknown, message: string, status: 200 | 201 = 200) {
+    success<ResponseType extends ApiResponseType<unknown>>(
+        data: ResponseType["result"],
+        message: string,
+        status: 200 | 201 = 200
+    ) {
         this.logger.info(message);
 
         return NextResponse.json(

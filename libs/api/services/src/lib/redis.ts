@@ -26,3 +26,7 @@ export function applyRatelimit(ip: string | null) {
 
     return rateLimit.limit(ip);
 }
+
+export const REDIS_KEYS = {
+    BLACKLISTED_AUTH_TOKENS: (token: string) => `b_a_t:${token}`,
+} as const;

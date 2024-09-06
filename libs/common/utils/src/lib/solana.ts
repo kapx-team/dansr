@@ -17,7 +17,7 @@ export function shortenAddress(address: string) {
     return "---";
 }
 
-export function validateSolAddress(address: string) {
+export function isValidSolanaAddress(address: string) {
     try {
         const pubkey = new PublicKey(address);
         return PublicKey.isOnCurve(pubkey.toBuffer());
