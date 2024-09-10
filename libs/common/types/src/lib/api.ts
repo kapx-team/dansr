@@ -13,3 +13,8 @@ export type WalletSignInRequestApiResponse = ApiResponseType<{
 export type UserSignOutApiResponse = ApiResponseType<{
     id: string;
 }>;
+
+export type GetXSigninUrlApiResponse = ApiResponseType<{
+    isXAuthorized: boolean;
+    url?: string;
+}>;

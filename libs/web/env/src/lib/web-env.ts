@@ -16,6 +16,8 @@ const envSchema = z.object({
     NEXT_PUBLIC_SOLANA_RPC_URL: z.string().url(),
 
     NEXT_PUBLIC_POSTHOG_KEY: z.string().optional(),
+
+    NEXT_PUBLIC_X_CLIENT_ID: z.string().min(1),
 });
 
 const env = {
@@ -24,6 +26,7 @@ const env = {
     NEXT_PUBLIC_SOLANA_NETWORK: process.env["NEXT_PUBLIC_SOLANA_NETWORK"],
     NEXT_PUBLIC_SOLANA_RPC_URL: process.env["NEXT_PUBLIC_SOLANA_RPC_URL"],
     NEXT_PUBLIC_POSTHOG_KEY: process.env["NEXT_PUBLIC_POSTHOG_KEY"],
+    NEXT_PUBLIC_X_CLIENT_ID: process.env["NEXT_PUBLIC_X_CLIENT_ID"],
 };
 
 export const webEnv = parseEnv({

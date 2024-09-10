@@ -1,12 +1,17 @@
 import { Providers, ToastNotificationDisplay } from "@dansr/common-ui";
 
 import type { Metadata } from "next";
-import { Inter, Karla } from "next/font/google";
+import { Inter } from "next/font/google";
+import localFont from "next/font/local";
 import "../styles/globals.css";
 
-const inter = Inter({ variable: "--font-inter", subsets: ["latin"] });
-const karla = Karla({ variable: "--font-karla", subsets: ["latin"] });
+// Font files can be colocated inside of `pages`
 
+const inter = Inter({ variable: "--font-inter", subsets: ["latin"] });
+const ibrand = localFont({
+    src: "../public/fonts/Ibrand.woff2",
+    variable: "--font-ibrand",
+});
 export const metadata = {
     title: "Dansr",
     description: "",
@@ -35,7 +40,7 @@ export default function RootLayout({
                 <link rel="icon" href="/favicon.ico" />
             </head>
             <body
-                className={`${inter.variable} ${karla.variable} flex h-screen flex-col bg-dark-1 text-white`}
+                className={`${inter.variable} ${ibrand.variable} flex h-screen flex-col bg-dark-1 text-white`}
             >
                 <Providers>{children}</Providers>
 

@@ -30,7 +30,10 @@ export const usersTable = mysqlTable(
                 email: boolean;
             }>(),
         username: varchar("username", { length: 40 }),
-        twitterHandle: varchar("twitter_handle", { length: 20 }),
+        xHandle: varchar("x_handle", { length: 20 }),
+        xId: varchar("x_id", { length: 20 }),
+        xAccessToken: varchar("x_access_token", { length: 200 }),
+        xAccessSecret: varchar("x_access_secret", { length: 200 }),
         type: getMysqlEnumFromConstants({
             constants: USER_TYPES,
             columnName: "type",
@@ -44,8 +47,8 @@ export const usersTable = mysqlTable(
                 table.username
             ),
             walletUniqueIdx: uniqueIndex("wallet_unique_idx").on(table.wallet),
-            twitterHandleUniqueIdx: uniqueIndex("twitter_handle_unique_idx").on(
-                table.twitterHandle
+            xHandleUniqueIdx: uniqueIndex("x_handle_unique_idx").on(
+                table.xHandle
             ),
         };
     }

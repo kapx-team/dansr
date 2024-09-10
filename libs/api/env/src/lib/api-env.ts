@@ -21,6 +21,8 @@ const envSchema = z.object({
         .transform((value) => {
             return value === "true";
         }),
+    FRONTEND_URL: z.string().url(),
+    ENCRYPTION_SECRET: z.string().min(1),
 
     SOLANA_RPC_URL: z.string().url(),
 
@@ -46,6 +48,12 @@ const envSchema = z.object({
 
     // JWT
     JWT_SECRET: z.string().min(1),
+
+    // X
+    X_APP_KEY: z.string().min(1),
+    X_APP_SECRET: z.string().min(1),
+    X_BEARER_TOKEN: z.string().min(1),
+    X_CLIENT_SECRET: z.string().min(1),
 });
 
 export const apiEnv = parseEnv({

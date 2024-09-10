@@ -25,7 +25,7 @@ module.exports = {
                 heading: "var(--font-inter)",
                 body: "var(--font-karla)",
                 inter: "var(--font-inter)",
-                karla: "var(--font-karla)",
+                ibrand: "var(--font-ibrand)",
             },
         },
     },
