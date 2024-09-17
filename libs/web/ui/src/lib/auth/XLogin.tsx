@@ -60,8 +60,6 @@ export function XLogin() {
                 .then((response) => {
                     if (!response.success) {
                         router.replace("/auth/x-auth-error");
-                    } else {
-                        router.replace("/");
                     }
                 })
                 .catch((error) => {
