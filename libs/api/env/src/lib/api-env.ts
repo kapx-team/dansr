@@ -54,6 +54,8 @@ const envSchema = z.object({
     X_APP_SECRET: z.string().min(1),
     X_BEARER_TOKEN: z.string().min(1),
     X_CLIENT_SECRET: z.string().min(1),
+    ASK_DANSR_X_ACCESS_TOKEN: z.string().min(1),
+    ASK_DANSR_X_ACCESS_SECRET: z.string().min(1),
 });
 
 export const apiEnv = parseEnv({

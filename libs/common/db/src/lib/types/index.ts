@@ -2,6 +2,7 @@ import type { InferInsertModel, InferSelectModel } from "drizzle-orm";
 import type {
     contactFormSubmissionsTable,
     creatorsTable,
+    freeQuestionsTable,
     usersTable,
     userWalletSigninRequestsTable,
     verificationRequestsTable,
@@ -34,3 +35,6 @@ export type SelectUserWalletSigninRequest = InferSelectModel<
 export type InsertUserWalletSigninRequest = InferInsertModel<
     typeof userWalletSigninRequestsTable
 >;
+
+export type SelectFreeQuestion = InferSelectModel<typeof freeQuestionsTable>;
+export type InsertFreeQuestion = InferInsertModel<typeof freeQuestionsTable>;

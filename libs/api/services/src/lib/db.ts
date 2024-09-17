@@ -2,8 +2,10 @@ import { decryptToken } from "@dansr/api-utils";
 import { DB_ID_PREFIXES } from "@dansr/common-constants";
 import {
     db,
+    freeQuestionsTable,
     generateDbId,
     usersTable,
+    type InsertFreeQuestion,
     type InsertUser,
 } from "@dansr/common-db";
 import { eq, getTableColumns } from "drizzle-orm";
@@ -79,5 +81,26 @@ export function createDbUserService() {
         createUserByWalletAddress,
         getUserById,
         getUserXAuthCredentials,
+    };
+}
+
+export function createDbFreeQuestionsService() {
+    const table = freeQuestionsTable;
+
+    async function getFreeQuestions() {
+        const questions = await db.select().from(table);
+
+        return questions;
+    }
+
+    async function addFreeQuestion(data: InsertFreeQuestion) {
+        await db.insert(table).values(data);
+
+        return data;
+    }
+
+    return {
+        getFreeQuestions,
+        addFreeQuestion,
     };
 }

@@ -14,3 +14,12 @@ export function getXUserClient(token: string, tokenSecret: string) {
         accessSecret: tokenSecret,
     });
 }
+
+export function getXAskDansrClient() {
+    return new TwitterApi({
+        appKey: apiEnv.X_APP_KEY,
+        appSecret: apiEnv.X_APP_SECRET,
+        accessToken: apiEnv.ASK_DANSR_X_ACCESS_TOKEN,
+        accessSecret: apiEnv.ASK_DANSR_X_ACCESS_SECRET,
+    });
+}
