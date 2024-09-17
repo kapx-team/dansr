@@ -14,6 +14,23 @@ export const getWalletSignInMessageSchema = z.object({
         }),
 });
 
+export const xSigninCallbackSchema = z.object({
+    oauthToken: z
+        .string({
+            required_error: "OAuth token is required!",
+            invalid_type_error: "Invalid OAuth token!",
+        })
+        .min(1, { message: "OAuth token is required!" }),
+    oauthVerifier: z
+        .string({
+            required_error: "OAuth verifier is required!",
+            invalid_type_error: "Invalid OAuth verifier!",
+        })
+        .min(1, { message: "OAuth verifier is required!" }),
+});
+
+export type XSigninCallbackSchema = z.infer<typeof xSigninCallbackSchema>;
+
 export const walletSignInRequestSchema = z.object({
     requestId: z
         .string({

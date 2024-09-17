@@ -26,6 +26,7 @@ export function createDbUserService() {
             id: generateDbId(DB_ID_PREFIXES.USER),
             type: "normal",
             wallet: walletAddress,
+            lastLoginAt: new Date(),
         } satisfies InsertUser;
 
         await db.insert(table).values(data);

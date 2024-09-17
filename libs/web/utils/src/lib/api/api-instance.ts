@@ -4,7 +4,7 @@ import { getApiAuthService } from "./auth";
 
 export const apiInstance = ky.create({
     prefixUrl: webEnv.NEXT_PUBLIC_API_URL,
-    credentials: "same-origin",
+    credentials: "include",
     retry: 0,
     throwHttpErrors: false,
 });

@@ -1,13 +1,10 @@
-import type { SelectUser } from "@dansr/common-db";
-import type { ApiResponseType } from "@dansr/common-types";
-import { apiInstance } from "@dansr/web-utils";
+import { REACT_QUERY_KEYS } from "@dansr/common-constants";
+import { apiClient } from "@dansr/web-utils";
 import { useQuery } from "@tanstack/react-query";
 import { usePostHog, type PostHog } from "posthog-js/react";
 
 const queryFn = async (posthog: PostHog) => {
-    const response = await apiInstance
-        .get(`/auth/user`)
-        .json<ApiResponseType<SelectUser>>();
+    const response = await apiClient.auth.getAuthenticatedUser();
 
     if (!response.success) {
         return null;
@@ -31,7 +28,7 @@ export function useAuthenticatedUser() {
     const posthog = usePostHog();
 
     return useQuery({
-        queryKey: ["authenticated-user"],
+        queryKey: REACT_QUERY_KEYS.AUTHENTICATED_USER,
         queryFn: () => queryFn(posthog),
         retry: false,
         refetchOnWindowFocus: false,

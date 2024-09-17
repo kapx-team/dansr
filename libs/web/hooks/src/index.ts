@@ -1,3 +1,4 @@
-export * from "./lib/useAuthenticatedUser";
-
+export * from "./lib/auth/useAuthenticatedUser";
 export * from "./lib/auth/useGetXSigninUrl";
+export * from "./lib/auth/useSignout";
+export * from "./lib/auth/useXSigninCallback";

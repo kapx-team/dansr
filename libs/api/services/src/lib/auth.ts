@@ -17,7 +17,7 @@ import {
 import { extractErrorMessage } from "@dansr/common-utils";
 import { Header, Payload, SIWS } from "@web3auth/sign-in-with-solana";
 import { randomUUID } from "crypto";
-import { addDays, addMinutes, getSeconds } from "date-fns";
+import { addDays, addMinutes, getUnixTime } from "date-fns";
 import { eq } from "drizzle-orm";
 import * as jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
@@ -34,17 +34,25 @@ export async function getAuthenticatedUser(): Promise<GetAuthenticatedUserRespon
     try {
         const cookie = cookies().get(AUTH_COOKIE_NAME);
 
+        console.log("cookie", cookie);
+
         if (!cookie) {
             throw new Error("No cookie found");
         }
 
         const token = cookie.value;
 
+        console.log("token", token);
+
         const decoded = await verifyJWT(token);
+
+        console.log("decoded", decoded);
 
         const dbUserService = createDbUserService();
 
         const user = await dbUserService.getUserById(decoded.userId);
+
+        console.log("user", user);
 
         if (!user) {
             throw new Error("User not found!");
@@ -203,8 +211,8 @@ export function createJWT(userId: string): string {
 
     const date = new Date();
 
-    const now = getSeconds(date);
-    const expiresIn = addDays(date, 7).getSeconds();
+    const now = getUnixTime(date);
+    const expiresIn = getUnixTime(addDays(date, 7));
 
     const payload = {
         userId,
@@ -221,13 +229,23 @@ export function createJWT(userId: string): string {
 }
 
 export async function verifyJWT(token: string) {
-    if (await isBlacklistedAuthToken(token)) {
+    const isBlacklisted = await isBlacklistedAuthToken(token);
+
+    console.log("isBlacklisted", isBlacklisted);
+
+    if (isBlacklisted) {
         throw new Error("Invalid token!");
     }
 
     const secret = apiEnv.JWT_SECRET;
 
+    console.log("secret", secret);
+
+    console.log("decode token without verifying", jwt.decode(token));
+
     const decoded = jwt.verify(token, secret) as JWTPayload;
+
+    console.log("decoded", decoded);
 
     return decoded;
 }

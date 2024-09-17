@@ -12,8 +12,7 @@ export function getAccessTokenCookieData(accessToken?: string) {
         secure: apiEnv.VERCEL_ENV !== "development",
         sameSite: apiEnv.VERCEL_ENV === "development" ? "lax" : "none",
         expires: addDays(new Date(), 7),
-        domain:
-            apiEnv.VERCEL_ENV === "development" ? "localhost" : ".dansr.com",
+        domain: apiEnv.VERCEL_ENV === "development" ? "localhost" : ".dansr.io",
     } as const;
 }
 

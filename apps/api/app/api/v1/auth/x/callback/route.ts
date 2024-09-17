@@ -1,19 +1,32 @@
-import { apiEnv } from "@dansr/api-env";
 import { createCookieHandler, createJWT } from "@dansr/api-services";
 import redis, { REDIS_KEYS } from "@dansr/api-services/redis";
 import { getXUserClient } from "@dansr/api-services/x";
-import { ApiResponseHandler, encryptToken } from "@dansr/api-utils";
+import {
+    ApiResponseHandler,
+    encryptToken,
+    validateReqBody,
+} from "@dansr/api-utils";
 import { DB_ID_PREFIXES } from "@dansr/common-constants";
 import { db, generateDbId, usersTable } from "@dansr/common-db";
+import type { XSigninCallbackApiResponse } from "@dansr/common-types";
+import { xSigninCallbackSchema } from "@dansr/common-validators";
 import { eq } from "drizzle-orm";
-import { NextResponse, type NextRequest } from "next/server";
+import { type NextRequest } from "next/server";
 
-export async function GET(req: NextRequest) {
+export async function POST(req: NextRequest) {
     const apiResponseHandler = new ApiResponseHandler(req);
 
     try {
-        const oauthToken = req.nextUrl.searchParams.get("oauth_token");
-        const oauthVerifier = req.nextUrl.searchParams.get("oauth_verifier");
+        const bodyValidationResult = await validateReqBody({
+            req,
+            schema: xSigninCallbackSchema,
+        });
+
+        if (!bodyValidationResult.success) {
+            return apiResponseHandler.clientError(bodyValidationResult.error);
+        }
+
+        const { oauthToken, oauthVerifier } = bodyValidationResult.body;
 
         const oauthTokenSecret = (await redis.get(
             REDIS_KEYS.X_OAUTH_TOKEN_SECRET(oauthToken || "")
@@ -52,6 +65,7 @@ export async function GET(req: NextRequest) {
                     xId: result.userId,
                     xAccessToken: encryptedAccessToken,
                     xAccessSecret: encryptedAccessSecret,
+                    lastLoginAt: new Date(),
                 })
                 .where(eq(usersTable.id, oauthTokenUserId));
 
@@ -72,6 +86,7 @@ export async function GET(req: NextRequest) {
                     xAccessToken: encryptedAccessToken,
                     xAccessSecret: encryptedAccessSecret,
                     type: "creator",
+                    lastLoginAt: new Date(),
                 });
             } else {
                 await db
@@ -80,6 +95,7 @@ export async function GET(req: NextRequest) {
                         xHandle: result.screenName,
                         xAccessToken: encryptedAccessToken,
                         xAccessSecret: encryptedAccessSecret,
+                        lastLoginAt: new Date(),
                     })
                     .where(eq(usersTable.xId, result.userId));
 
@@ -91,11 +107,20 @@ export async function GET(req: NextRequest) {
 
         const cookieHandler = createCookieHandler();
 
+        console.log("Setting auth cookie...");
+
         cookieHandler.setAuthCookie(accessToken);
 
-        return NextResponse.redirect(apiEnv.FRONTEND_URL);
+        return apiResponseHandler.success<XSigninCallbackApiResponse>(
+            {
+                userId,
+            },
+            "Successfully logged in using X!"
+        );
     } catch (error) {
         apiResponseHandler.logger.error("Error logging in to X", { error });
-        return NextResponse.redirect(`${apiEnv.FRONTEND_URL}/x-signin-error`);
+        return apiResponseHandler.serverError(
+            "Error logging in to X, please try again."
+        );
     }
 }

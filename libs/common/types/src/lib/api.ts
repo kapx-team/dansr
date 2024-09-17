@@ -1,3 +1,4 @@
+import type { SelectUser } from "@dansr/common-db";
 import type { ApiResponseType } from "./general";
 
 export type GetWalletSignInMessageApiResponse = ApiResponseType<{
@@ -17,4 +18,10 @@ export type UserSignOutApiResponse = ApiResponseType<{
 export type GetXSigninUrlApiResponse = ApiResponseType<{
     isXAuthorized: boolean;
     url?: string;
+}>;
+
+export type GetAuthenticatedUserApiResponse = ApiResponseType<SelectUser>;
+
+export type XSigninCallbackApiResponse = ApiResponseType<{
+    userId: string;
 }>;

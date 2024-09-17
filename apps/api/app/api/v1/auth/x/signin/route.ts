@@ -1,10 +1,11 @@
+import { apiEnv } from "@dansr/api-env";
 import { getAuthenticatedUser } from "@dansr/api-services";
 import { createDbUserService } from "@dansr/api-services/db";
 import redis, { REDIS_KEYS } from "@dansr/api-services/redis";
 import { getXUserClient, xAppClient } from "@dansr/api-services/x";
 import { ApiResponseHandler } from "@dansr/api-utils";
 import type { GetXSigninUrlApiResponse } from "@dansr/common-types";
-import { addMinutes, getSeconds } from "date-fns";
+import { addMinutes, getUnixTime } from "date-fns";
 import { type NextRequest } from "next/server";
 
 export async function POST(req: NextRequest) {
@@ -13,13 +14,19 @@ export async function POST(req: NextRequest) {
     try {
         const { user } = await getAuthenticatedUser();
 
+        console.log("user =>", user);
+
         const dbUserService = createDbUserService();
 
         if (user) {
+            console.log("user =>", user);
             apiResponseHandler.logger.user(user);
 
             const { xAccessToken, xAccessSecret } =
                 await dbUserService.getUserXAuthCredentials(user.id);
+
+            console.log("xAccessToken =>", xAccessToken);
+            console.log("xAccessSecret =>", xAccessSecret);
 
             if (xAccessToken && xAccessSecret) {
                 const xUserClient = getXUserClient(xAccessToken, xAccessSecret);
@@ -46,14 +53,13 @@ export async function POST(req: NextRequest) {
 
         const { oauth_token, oauth_token_secret, url } =
             await xAppClient.generateAuthLink(
-                process.env.VERCEL_URL ||
-                    "https://fe79-122-161-65-89.ngrok-free.app/v1/auth/x/callback",
+                process.env.VERCEL_URL || `${apiEnv.FRONTEND_URL}/auth`,
                 {
                     authAccessType: "read",
                 }
             );
 
-        const twentySeconds = getSeconds(addMinutes(new Date(), 20));
+        const twentySeconds = getUnixTime(addMinutes(new Date(), 20));
 
         await redis.set(
             REDIS_KEYS.X_OAUTH_TOKEN_SECRET(oauth_token),
