@@ -30,7 +30,7 @@ export function CreatorsSection() {
                 className="w-full object-cover"
             />
 
-            <PageContainer className="relative flex items-center justify-center gap-5 py-16 lg:py-16">
+            <PageContainer className="relative flex flex-wrap items-center justify-center gap-5 py-16 lg:py-16">
                 <Link
                     href="http://x.com/askdansr"
                     target="_blank"
