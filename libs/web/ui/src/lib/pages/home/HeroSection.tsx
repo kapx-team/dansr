@@ -11,20 +11,25 @@ export function HeroSection() {
     return (
         <PageContainer className="relative flex flex-col items-center justify-center gap-4 py-14 lg:py-24">
             <h1 className="flex flex-col text-center lg:text-[66px] gap-2 lg:gap-8 text-3xl font-bold mb-4 lg:mb-8">
-                <span>Got a question for your industry idol?</span>
+                <span>Got a question for someone famous?</span>
                 <span className="flex items-center justify-center gap-3">
                     Get your
                     <span className="-mt-2">
                         <Logo className="lg:w-40 w-20" />
                     </span>
-                    .
                 </span>
             </h1>
 
-            <p className="text-center max-w-[670px] mb-8 lg:mb-16 text-sm md:text-base">
-                Ever wanted to ask a famous creator something directly? Now’s
-                your chance! Simply enter your details, and connect with the
-                voices that inspire you!
+            <p className="text-center max-w-[670px] mb-8 lg:mb-16 text-sm md:text-base font-medium">
+                If you could ask a question to absolutely anyone on X and would
+                be guaranteed a response that would appear on your feed, what
+                would that question be — and to whom? Tell us below, and we may
+                just get a{" "}
+                <span className="font-bold">
+                    <span className="text-red-500">d</span>irect{" "}
+                    <span className="text-red-500">answer</span>
+                </span>
+                !
             </p>
 
             <Image

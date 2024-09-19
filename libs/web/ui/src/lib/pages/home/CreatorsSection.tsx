@@ -13,15 +13,14 @@ export function CreatorsSection() {
     return (
         <div>
             <PageContainer className="relative flex flex-col items-center justify-center gap-4 py-4 lg:py-16">
-                <h1 className="flex flex-col text-center lg:text-[66px] text-3xl font-bold">
-                    Big Names Are Coming Soon!
+                <h1 className="flex flex-col text-center lg:text-[66px] text-3xl font-bold mb-4 lg:mb-8">
+                    Who’s danswering?
                 </h1>
 
-                <p className="text-center max-w-[1010px] mb-16 text-sm md:text-base">
-                    Excited to see which famous creators will be answering your
-                    questions? Stay tuned for the big reveal! We’re onboarding
-                    top names from across industries. Who will be the first to
-                    answer your questions?
+                <p className="text-center max-w-[680px] mb-16 text-sm md:text-base font-medium ">
+                    Stay tuned for the big reveal! We’re onboarding top names
+                    from across industries. Who will be the first to answer your
+                    questions?
                 </p>
             </PageContainer>
 
