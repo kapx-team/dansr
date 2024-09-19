@@ -24,6 +24,7 @@ export function QuestionForm() {
         handleSubmit,
         formState: { errors },
         getValues,
+        reset,
     } = useForm<AddFreeQuestionSchema>({
         resolver: zodResolver(addFreeQuestionsSchema),
     });
@@ -37,6 +38,7 @@ export function QuestionForm() {
             toast.loading("Submitting question...");
             await mutateAsync(data);
             toast.success("Question submitted successfully!");
+            reset();
         } catch (error) {
             console.error("handleSubmitQuestionForm =>", error);
             toast.error("Failed to submit question! Please try again later.");

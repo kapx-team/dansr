@@ -1,5 +1,4 @@
 import { createDbFreeQuestionsService } from "@dansr/api-services/db";
-import { getXAskDansrClient } from "@dansr/api-services/x";
 import { ApiResponseHandler, validateReqBody } from "@dansr/api-utils";
 import { DB_ID_PREFIXES } from "@dansr/common-constants";
 import { generateDbId } from "@dansr/common-db";
@@ -34,15 +33,15 @@ export async function POST(req: NextRequest) {
             userHandle,
         });
 
-        const xAskDansrClient = getXAskDansrClient();
+        // const xAskDansrClient = getXAskDansrClient();
 
-        const xPost = await xAskDansrClient.readWrite.v2.tweet(
-            `"${userHandle}" asked: ${question} to "${creatorHandle}"`
-        );
+        // const xPost = await xAskDansrClient.readWrite.v2.tweet(
+        //     `"${userHandle}" asked: ${question} to "${creatorHandle}"`
+        // );
 
-        if (xPost?.errors && xPost?.errors?.length > 0) {
-            throw new Error(xPost?.errors[0].detail);
-        }
+        // if (xPost?.errors && xPost?.errors?.length > 0) {
+        //     throw new Error(xPost?.errors[0].detail);
+        // }
 
         return apiResponseHandler.success<AddFreeQuestionApiResponse>(
             freeQuestion,
