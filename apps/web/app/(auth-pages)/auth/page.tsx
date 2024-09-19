@@ -1,4 +1,5 @@
 import { XLogin } from "@dansr/web-ui";
+import { Suspense } from "react";
 
 export default function AuthPage() {
     return (
@@ -14,7 +15,9 @@ export default function AuthPage() {
                 className="flex flex-col items-center justify-center h-full
             space-y-2 md:-space-y-2 text-center"
             >
-                <XLogin />
+                <Suspense fallback={<div>Loading...</div>}>
+                    <XLogin />
+                </Suspense>
             </div>
         </div>
     );

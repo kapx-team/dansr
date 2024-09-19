@@ -1,6 +1,6 @@
 "use client";
 
-import { creatorsSectionImg } from "@dansr/common-assets";
+import { creatorsSectionImg, xIconImg } from "@dansr/common-assets";
 import { Button } from "@dansr/common-ui";
 import { PageContainer } from "@dansr/common-ui/server";
 import Image from "next/image";
@@ -38,9 +38,16 @@ export function CreatorsSection() {
                     style={{
                         background: `rgba(255, 255, 255, 0.2)`,
                     }}
-                    className="text-white py-4 px-9 rounded-lg font-heading text-center"
+                    className="text-white py-4 px-9 rounded-lg font-heading text-center flex items-center justify-center gap-2"
                 >
-                    Follow Us On X
+                    <span>Follow Us On</span>{" "}
+                    <span>
+                        <Image
+                            src={xIconImg}
+                            alt="x-icon"
+                            className="w-[18px] h-[18px]"
+                        />
+                    </span>
                 </Link>
 
                 <Button onClick={() => router.push(`#question-form`)}>
