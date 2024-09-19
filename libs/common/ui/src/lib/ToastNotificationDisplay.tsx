@@ -11,9 +11,9 @@ export function ToastNotificationDisplay() {
             position="bottom-left"
             toastOptions={{
                 style: {
-                    backgroundColor: "#19203A",
+                    backgroundColor: "#2D005D",
                     color: "#ffffff",
-                    fontFamily: "var(--font-inter)",
+                    fontFamily: "var(--font-ibrand)",
                 },
             }}
         />

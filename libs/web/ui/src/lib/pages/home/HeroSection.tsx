@@ -21,10 +21,10 @@ export function HeroSection() {
             </h1>
 
             <p className="text-center max-w-[670px] mb-8 lg:mb-16 text-sm md:text-base font-medium">
-                If you could ask a question to absolutely anyone on X and would
+                If you could ask a question to absolutely anyone on X and could
                 be guaranteed a response that would appear on your feed, what
                 would that question be — and to whom? Tell us below, and we may
-                just get a{" "}
+                just get you a{" "}
                 <span className="font-bold">
                     <span className="text-red-500">d</span>irect{" "}
                     <span className="text-red-500">answer</span>
