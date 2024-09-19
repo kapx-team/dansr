@@ -1,26 +1,22 @@
-import { dansrLogoImg } from "@dansr/common-assets";
-import Image from "next/image";
+import { CreatorsSection } from "@dansr/web-ui";
+import { Footer, HeroSection } from "@dansr/web-ui/server";
 
 export default function HomePage() {
     return (
         <div
+            className="w-full"
             style={{
-                backgroundImage: `url(/images/background.jpeg)`,
+                backgroundImage: `url(/images/landing-background.jpeg)`,
                 backgroundSize: "cover",
-                backgroundPosition: "center",
-                height: "100vh",
+                backgroundPosition: "top",
+                backgroundRepeat: "no-repeat",
             }}
         >
-            <div
-                className="flex flex-col items-center justify-center h-full
-            space-y-2 md:-space-y-2 text-center"
-            >
-                <Image src={dansrLogoImg} alt="dansr-logo" />
+            <HeroSection />
 
-                <h1 className="font-ibrand text-6xl sm:text-[81px] bg-gradient-to-b from-[#FFFFFF] to-[#FFFFFF00] bg-clip-text text-transparent ">
-                    coming soon
-                </h1>
-            </div>
+            <CreatorsSection />
+
+            <Footer />
         </div>
     );
 }

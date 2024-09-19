@@ -13,18 +13,17 @@ module.exports = {
     theme: {
         extend: {
             colors: {
-                primary: { 1: "#319795", 2: "#2C7A7B", 3: "#234E52" },
+                primary: { 1: "#2D005D" },
                 dark: {
                     1: "#19203A",
                     2: "#242E47",
                     3: "#2A4365",
                 },
-                success: "#38A169",
             },
             fontFamily: {
-                heading: "var(--font-inter)",
-                body: "var(--font-karla)",
-                inter: "var(--font-inter)",
+                heading: "var(--font-ibrand)",
+                body: "var(--font-montserrat)",
+                montserrat: "var(--font-montserrat)",
                 ibrand: "var(--font-ibrand)",
             },
         },

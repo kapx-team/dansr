@@ -1,6 +1,5 @@
 "use client";
 
-import { PRIMARY_COLOR } from "@dansr/common-constants";
 import { Oval } from "react-loader-spinner";
 
 type Props = {
@@ -8,7 +7,7 @@ type Props = {
     color?: string;
 };
 
-export function LoadingSpinner({ size = 30, color = PRIMARY_COLOR }: Props) {
+export function LoadingSpinner({ size = 30, color = "#ffffff" }: Props) {
     return (
         <Oval
             height={size}

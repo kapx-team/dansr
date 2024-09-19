@@ -1,13 +1,16 @@
 import { Providers, ToastNotificationDisplay } from "@dansr/common-ui";
 
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Montserrat } from "next/font/google";
 import localFont from "next/font/local";
 import "../styles/globals.css";
 
 // Font files can be colocated inside of `pages`
 
-const inter = Inter({ variable: "--font-inter", subsets: ["latin"] });
+const montserrat = Montserrat({
+    subsets: ["latin"],
+    variable: "--font-montserrat",
+});
 const ibrand = localFont({
     src: "../public/fonts/Ibrand.woff2",
     variable: "--font-ibrand",
@@ -40,7 +43,7 @@ export default function RootLayout({
                 <link rel="icon" href="/favicon.ico" />
             </head>
             <body
-                className={`${inter.variable} ${ibrand.variable} flex h-screen flex-col bg-dark-1 text-white`}
+                className={`${montserrat.variable} ${ibrand.variable} bg-primary-1 text-white`}
             >
                 <Providers>{children}</Providers>
 

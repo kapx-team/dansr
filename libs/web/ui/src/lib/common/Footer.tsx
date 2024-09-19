@@ -1,7 +1,12 @@
+import { Logo } from "@dansr/common-ui/server";
+
 export function Footer() {
     return (
-        <footer className="flex flex-col bg-dark-1 px-5 lg:bg-dark-2 lg:px-10 ">
-            Footer
+        <footer className="flex -space-x-4 font-medium font-body items-center justify-center p-8">
+            <span>Copyright © 2024. All Rights Reserved by</span>
+            <span>
+                <Logo className="h-4" />
+            </span>
         </footer>
     );
 }

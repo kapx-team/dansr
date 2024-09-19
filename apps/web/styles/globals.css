@@ -14,7 +14,8 @@
     h3,
     h4,
     h5,
-    h6 {
+    h6,
+    button {
         @apply font-heading;
     }
 
@@ -25,4 +26,15 @@
 }
 
 @layer utilities {
+    .bg-gradient-primary {
+        background: linear-gradient(96.98deg, #ff304c -37.09%, #6402b9 97.97%);
+    }
+
+    .bg-gradient-primary-2 {
+        background: linear-gradient(
+            108.18deg,
+            rgba(234, 76, 137, 0.2) -2.02%,
+            rgba(77, 68, 198, 0.2) 100%
+        );
+    }
 }
