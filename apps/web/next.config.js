@@ -41,6 +41,15 @@ const nextConfig = {
             },
         ];
     },
+    async redirects() {
+        return [
+            {
+                source: "/qr",
+                destination: "https://dansr.io",
+                permanent: true,
+            },
+        ];
+    },
     // This is required to support PostHog trailing slash API requests
     skipTrailingSlashRedirect: true,
     webpack: (config) => {
