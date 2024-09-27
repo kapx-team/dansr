@@ -20,6 +20,11 @@ export type GetXSigninUrlApiResponse = ApiResponseType<{
     url?: string;
 }>;
 
+export type GenerateInviteCodeApiResponse = ApiResponseType<{
+    inviteCode: string;
+    inviteUrl: string;
+}>;
+
 export type AddFreeQuestionApiResponse = ApiResponseType<
     Partial<SelectFreeQuestion>
 >;

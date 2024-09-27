@@ -7,7 +7,13 @@ import {
     validateReqBody,
 } from "@dansr/api-utils";
 import { DB_ID_PREFIXES } from "@dansr/common-constants";
-import { db, generateDbId, usersTable } from "@dansr/common-db";
+import {
+    creatorInvitesTable,
+    creatorsTable,
+    db,
+    generateDbId,
+    usersTable,
+} from "@dansr/common-db";
 import type { XSigninCallbackApiResponse } from "@dansr/common-types";
 import { xSigninCallbackSchema } from "@dansr/common-validators";
 import { eq } from "drizzle-orm";
@@ -34,6 +40,10 @@ export async function POST(req: NextRequest) {
 
         const oauthTokenUserId = (await redis.get(
             REDIS_KEYS.X_OAUTH_TOKEN_USER_ID(oauthToken || "")
+        )) as string;
+
+        const oauthTokenInviteCode = (await redis.get(
+            REDIS_KEYS.X_OAUTH_TOKEN_INVITE_CODE(oauthToken || "")
         )) as string;
 
         if (!oauthToken || !oauthVerifier || !oauthTokenSecret) {
@@ -77,16 +87,46 @@ export async function POST(req: NextRequest) {
                 .where(eq(usersTable.xId, result.userId));
 
             if (!existingXUser) {
+                if (!oauthTokenInviteCode) {
+                    return apiResponseHandler.clientError(
+                        "Invite code is required!"
+                    );
+                }
+
                 userId = generateDbId(DB_ID_PREFIXES.USER);
 
-                await db.insert(usersTable).values({
-                    id: userId,
-                    xHandle: result.screenName,
-                    xId: result.userId,
-                    xAccessToken: encryptedAccessToken,
-                    xAccessSecret: encryptedAccessSecret,
-                    type: "creator",
-                    lastLoginAt: new Date(),
+                const dbUserId = userId as string;
+
+                await db.transaction(async (trx) => {
+                    await trx.insert(usersTable).values({
+                        id: dbUserId,
+                        xHandle: result.screenName,
+                        xId: result.userId,
+                        xAccessToken: encryptedAccessToken,
+                        xAccessSecret: encryptedAccessSecret,
+                        type: "creator",
+                        lastLoginAt: new Date(),
+                    });
+
+                    const creatorId = generateDbId(DB_ID_PREFIXES.CREATOR);
+
+                    await trx.insert(creatorsTable).values({
+                        id: creatorId,
+                        userId: dbUserId,
+                        isVerified: true,
+                    });
+
+                    if (oauthTokenInviteCode) {
+                        await trx
+                            .update(creatorInvitesTable)
+                            .set({
+                                isUsed: true,
+                                invitedCreatorId: creatorId,
+                            })
+                            .where(
+                                eq(creatorInvitesTable.id, oauthTokenInviteCode)
+                            );
+                    }
                 });
             } else {
                 await db

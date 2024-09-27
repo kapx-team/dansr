@@ -7,6 +7,7 @@ import {
     AUTH_COOKIE_NAME,
     DB_ID_PREFIXES,
     VALID_AUTH_DOMAINS,
+    type UserType,
 } from "@dansr/common-constants";
 import {
     db,
@@ -30,7 +31,9 @@ type GetAuthenticatedUserResponse = {
     token: string | null;
 };
 
-export async function getAuthenticatedUser(): Promise<GetAuthenticatedUserResponse> {
+export async function getAuthenticatedUser(
+    allowedRoles?: UserType[]
+): Promise<GetAuthenticatedUserResponse> {
     try {
         const cookie = cookies().get(AUTH_COOKIE_NAME);
 
@@ -56,6 +59,10 @@ export async function getAuthenticatedUser(): Promise<GetAuthenticatedUserRespon
 
         if (!user) {
             throw new Error("User not found!");
+        }
+
+        if (allowedRoles && !allowedRoles.includes(user.type)) {
+            throw new Error("User does not have the required role!");
         }
 
         return { user, error: null, token };

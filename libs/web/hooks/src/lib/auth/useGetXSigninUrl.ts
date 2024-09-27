@@ -3,6 +3,7 @@ import { useMutation } from "@tanstack/react-query";
 
 export function useGetXSigninUrl() {
     return useMutation({
-        mutationFn: apiClient.auth.getXSigninUrl,
+        mutationFn: (inviteCode?: string) =>
+            apiClient.auth.getXSigninUrl(inviteCode),
     });
 }

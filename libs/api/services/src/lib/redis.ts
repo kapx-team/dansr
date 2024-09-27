@@ -31,4 +31,6 @@ export const REDIS_KEYS = {
     BLACKLISTED_AUTH_TOKENS: (token: string) => `b_a_t:${token}`,
     X_OAUTH_TOKEN_SECRET: (token: string) => `x_oauth_token_secret:${token}`,
     X_OAUTH_TOKEN_USER_ID: (token: string) => `x_oauth_token_user_id:${token}`,
+    X_OAUTH_TOKEN_INVITE_CODE: (token: string) =>
+        `x_oauth_token_invite_code:${token}`,
 } as const;

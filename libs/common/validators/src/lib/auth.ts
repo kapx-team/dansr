@@ -47,3 +47,12 @@ export const walletSignInRequestSchema = z.object({
         })
         .min(1, { message: "Signature is required!" }),
 });
+
+export const xSigninSchema = z.object({
+    inviteCode: z
+        .string({
+            required_error: "Invite code is required!",
+            invalid_type_error: "Invalid invite code!",
+        })
+        .optional(),
+});

@@ -19,12 +19,13 @@ export function XLogin() {
 
     const oauthToken = searchParams.get("oauth_token");
     const oauthVerifier = searchParams.get("oauth_verifier");
+    const inviteCode = searchParams.get("invite_code");
 
     const callbackExecutedRef = useRef(false);
 
     async function handleXLogin() {
         try {
-            const response = await mutateAsync();
+            const response = await mutateAsync(inviteCode || undefined);
 
             if (!response.success) {
                 throw new Error(response.message);
@@ -60,6 +61,8 @@ export function XLogin() {
                 .then((response) => {
                     if (!response.success) {
                         router.replace("/auth/x-auth-error");
+                    } else {
+                        router.replace("/dashboard");
                     }
                 })
                 .catch((error) => {
@@ -68,6 +71,12 @@ export function XLogin() {
                 });
         }
     }, [oauthToken, oauthVerifier, useXSigninCallbackMutation, router]);
+
+    useEffect(() => {
+        if (data) {
+            router.replace("/dashboard");
+        }
+    }, [data]); //eslint-disable-line
 
     return (
         <div className="flex flex-col gap-4">
