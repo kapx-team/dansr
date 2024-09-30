@@ -1,5 +1,5 @@
 import type { DbIdPrefix } from "@dansr/common-constants";
-import { generateId } from "@dansr/common-utils";
+import { generateId } from "@dansr/common-utils/general";
 import { mysqlEnum, timestamp, varchar } from "drizzle-orm/mysql-core";
 
 export function generateDbId(prefix: DbIdPrefix) {

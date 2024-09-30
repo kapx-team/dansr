@@ -1,8 +1,8 @@
 {
     "rules": [
         {
-            "pathPattern": "/pay/**",
-            "apiPath": "https://api.dansr.com/v1/actions/pay/**"
+            "pathPattern": "/links/**",
+            "apiPath": "https://api.dansr.io/v1/actions/place-bid/**"
         }
     ]
 }

@@ -6,6 +6,8 @@ export const DB_ID_PREFIXES = {
     USER_WALLET_SIGNIN_REQUEST: "usrq",
     FREE_QUESTION: "fqn",
     CREATOR_INVITE: "cin",
+    LINK: "lnk",
+    LINK_BID: "lbd",
 } as const;
 
 export type DbIdPrefix = (typeof DB_ID_PREFIXES)[keyof typeof DB_ID_PREFIXES];

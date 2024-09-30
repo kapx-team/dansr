@@ -2,6 +2,8 @@ export * from "./contact-form-submissions";
 export * from "./creator-invites";
 export * from "./creators";
 export * from "./free-questions";
+export * from "./link-bids";
+export * from "./links";
 export * from "./user-wallet-signin-requests";
 export * from "./users";
 export * from "./verification-requests";

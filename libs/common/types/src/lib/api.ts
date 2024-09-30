@@ -1,4 +1,8 @@
-import type { SelectFreeQuestion, SelectUser } from "@dansr/common-db";
+import type {
+    SelectFreeQuestion,
+    SelectLink,
+    SelectUser,
+} from "@dansr/common-db";
 import type { ApiResponseType } from "./general";
 
 export type GetWalletSignInMessageApiResponse = ApiResponseType<{
@@ -24,6 +28,8 @@ export type GenerateInviteCodeApiResponse = ApiResponseType<{
     inviteCode: string;
     inviteUrl: string;
 }>;
+
+export type GenerateLinkApiResponse = ApiResponseType<SelectLink>;
 
 export type AddFreeQuestionApiResponse = ApiResponseType<
     Partial<SelectFreeQuestion>

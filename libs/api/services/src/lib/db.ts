@@ -4,8 +4,11 @@ import {
     db,
     freeQuestionsTable,
     generateDbId,
+    linkBidsTable,
+    linksTable,
     usersTable,
     type InsertFreeQuestion,
+    type InsertLinkBid,
     type InsertUser,
 } from "@dansr/common-db";
 import { eq, getTableColumns } from "drizzle-orm";
@@ -102,5 +105,53 @@ export function createDbFreeQuestionsService() {
     return {
         getFreeQuestions,
         addFreeQuestion,
+    };
+}
+
+export function createDbLinksService() {
+    const table = linksTable;
+
+    async function getLinkWithCreatorInfo(linkId: string) {
+        const [link] = await db
+            .select({
+                ...getTableColumns(table),
+                creator: getTableColumns(usersTable),
+            })
+            .from(table)
+            .where(eq(table.id, linkId))
+            .innerJoin(usersTable, eq(linksTable.creatorId, usersTable.id));
+
+        return link ?? null;
+    }
+
+    async function createLinkBid(data: InsertLinkBid) {
+        await db.insert(linkBidsTable).values(data);
+
+        return data;
+    }
+
+    async function getLinkBids(linkId: string) {
+        const bids = await db
+            .select()
+            .from(linkBidsTable)
+            .where(eq(linkBidsTable.linkId, linkId));
+
+        return bids;
+    }
+
+    async function getBidDetails(bidId: string) {
+        const [bid] = await db
+            .select()
+            .from(linkBidsTable)
+            .where(eq(linkBidsTable.id, bidId));
+
+        return bid ?? null;
+    }
+
+    return {
+        getLinkWithCreatorInfo,
+        createLinkBid,
+        getLinkBids,
+        getBidDetails,
     };
 }

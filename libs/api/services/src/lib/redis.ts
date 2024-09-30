@@ -28,6 +28,7 @@ export function applyRatelimit(ip: string | null) {
 }
 
 export const REDIS_KEYS = {
+    JUPAG_TOKENS: "jupag_tokens",
     BLACKLISTED_AUTH_TOKENS: (token: string) => `b_a_t:${token}`,
     X_OAUTH_TOKEN_SECRET: (token: string) => `x_oauth_token_secret:${token}`,
     X_OAUTH_TOKEN_USER_ID: (token: string) => `x_oauth_token_user_id:${token}`,

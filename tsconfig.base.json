@@ -16,6 +16,7 @@
         "baseUrl": ".",
         "paths": {
             "@dansr/api-env": ["libs/api/env/src/index.ts"],
+            "@dansr/api-functions": ["libs/api/functions/src/index.ts"],
             "@dansr/api-services": ["libs/api/services/src/index.ts"],
             "@dansr/api-services/*": ["libs/api/services/src/lib/*"],
             "@dansr/api-types": ["libs/api/types/src/index.ts"],
@@ -30,6 +31,7 @@
             "@dansr/common-ui": ["libs/common/ui/src/index.ts"],
             "@dansr/common-ui/server": ["libs/common/ui/src/server.ts"],
             "@dansr/common-utils": ["libs/common/utils/src/index.ts"],
+            "@dansr/common-utils/*": ["libs/common/utils/src/lib/*"],
             "@dansr/common-validators": ["libs/common/validators/src/index.ts"],
             "@dansr/web-env": ["libs/web/env/src/index.ts"],
             "@dansr/web-hooks": ["libs/web/hooks/src/index.ts"],
