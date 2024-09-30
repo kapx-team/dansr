@@ -24,6 +24,7 @@ export default async function middleware(
     const actionHeaders = createActionHeaders({
         chainId: "mainnet",
         headers: ACTIONS_CORS_HEADERS,
+        actionVersion: "2.2",
     });
 
     const error = new Error("Too many requests!");

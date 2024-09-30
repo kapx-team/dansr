@@ -48,7 +48,7 @@ export async function GET(
                         flexDirection: "column",
                         alignItems: "center",
                         justifyContent: "center",
-                        backgroundColor: "#1E293B",
+                        backgroundColor: "#2D005D",
                         fontFamily: "sans-serif",
                         color: "white",
                         padding: "40px",
