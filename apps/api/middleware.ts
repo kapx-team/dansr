@@ -1,6 +1,7 @@
 import { apiEnv } from "@dansr/api-env";
 import { applyRatelimit } from "@dansr/api-services/redis";
 import { getIp } from "@dansr/api-utils/ip";
+import { ACTIONS_CORS_HEADERS, createActionHeaders } from "@solana/actions";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
@@ -13,20 +14,17 @@ const CORS_CONFIG: { [key: string]: string } = {
         "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version",
 };
 
-const ACTION_CORS_CONFIG: { [key: string]: string } = {
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Methods": "GET,POST,PUT,OPTIONS",
-    "Access-Control-Allow-Headers":
-        "Content-Type, Authorization, Content-Encoding, Accept-Encoding",
-    "Content-Type": "application/json",
-};
-
 export default async function middleware(
     req: NextRequest
 ): Promise<Response | undefined> {
     const ip = getIp(req);
 
     const { success } = await applyRatelimit(ip);
+
+    const actionHeaders = createActionHeaders({
+        chainId: "mainnet",
+        headers: ACTIONS_CORS_HEADERS,
+    });
 
     const error = new Error("Too many requests!");
 
@@ -55,8 +53,8 @@ export default async function middleware(
             res.headers.append(key, value);
         });
     } else {
-        Object.keys(ACTION_CORS_CONFIG).forEach((key) => {
-            const value = ACTION_CORS_CONFIG[key];
+        Object.keys(actionHeaders).forEach((key) => {
+            const value = actionHeaders[key];
 
             res.headers.append(key, value);
         });
