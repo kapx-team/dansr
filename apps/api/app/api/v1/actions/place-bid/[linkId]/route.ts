@@ -52,7 +52,7 @@ export async function GET(req: NextRequest, { params }: Params) {
             : `Place Bid using ${token.symbol}`;
 
         const result = {
-            icon: `https://api.dansr.io/og/link/${linkId}.png`,
+            icon: `https://api.dansr.io/v1/og/link/${linkId}.png`,
             description: `Place bid for chance to get attention of @${link.creator.xHandle}`,
             label,
             title: `Place bid for chance to get attention of @${link.creator.xHandle}`,
