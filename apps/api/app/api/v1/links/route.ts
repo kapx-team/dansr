@@ -83,8 +83,6 @@ export async function POST(req: NextRequest) {
             expiresAt: expirationDate,
             name: name ?? null,
             creatorId: user.id,
-            createdAt: currentDate,
-            updatedAt: null,
         } satisfies InsertLink;
 
         await db.insert(linksTable).values(linkData);

@@ -10,11 +10,15 @@ import {
 import { PublicKey } from "@solana/web3.js";
 import { logger, schedules } from "@trigger.dev/sdk/v3";
 import BigNumber from "bignumber.js";
-import { eq, getTableColumns } from "drizzle-orm";
+import { and, eq, getTableColumns, lte } from "drizzle-orm";
+import { selectWinningBidsForExpiredLink } from "../tasks/links";
 
 export const checkPendingBidsForCreation = schedules.task({
     id: TRIGGER_SCHEDULES.CHECK_PENDING_BIDS_FOR_CREATION,
     cron: "*/5 * * * *",
+    queue: {
+        concurrencyLimit: 1,
+    },
     run: async () => {
         const pendingBids = await db
             .select({
@@ -64,10 +68,39 @@ export const checkPendingBidsForCreation = schedules.task({
                             .update(linkBidsTable)
                             .set({
                                 status: BID_STATUSES.CREATED,
+                                bidTxSignature: txSig.signature,
                             })
                             .where(eq(linkBidsTable.id, bid.id));
                     }
                 }
+            }
+        }
+    },
+});
+
+export const checkExpiredLinksForResults = schedules.task({
+    id: TRIGGER_SCHEDULES.CHECK_EXPIRED_LINKS_FOR_RESULTS,
+    cron: "0 * * * *",
+    run: async () => {
+        const expiredLinks = await db
+            .select({ id: linksTable.id })
+            .from(linksTable)
+            .where(
+                and(
+                    lte(linksTable.expiresAt, new Date()),
+                    eq(linksTable.winningBidsSelected, false)
+                )
+            );
+
+        if (expiredLinks.length === 0) {
+            logger.log("no-expired-links-found", { expiredLinks });
+        } else {
+            logger.log("expired-links-found", { expiredLinks });
+
+            for (const link of expiredLinks) {
+                await selectWinningBidsForExpiredLink.trigger({
+                    linkId: link.id,
+                });
             }
         }
     },

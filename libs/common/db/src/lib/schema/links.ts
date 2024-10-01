@@ -1,5 +1,6 @@
 import { DB_ID_PREFIXES } from "@dansr/common-constants";
 import {
+    boolean,
     float,
     mediumint,
     mysqlTable,
@@ -23,4 +24,7 @@ export const linksTable = mysqlTable("links", {
     baseAmount: float("base_amount").notNull(),
     walletAddress: varchar("wallet_address", { length: 44 }).notNull(),
     numberOfBids: mediumint("number_of_bids").notNull(),
+    winningBidsSelected: boolean("winning_bids_selected")
+        .notNull()
+        .default(false),
 });

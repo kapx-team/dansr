@@ -29,7 +29,7 @@ export type GenerateInviteCodeApiResponse = ApiResponseType<{
     inviteUrl: string;
 }>;
 
-export type GenerateLinkApiResponse = ApiResponseType<SelectLink>;
+export type GenerateLinkApiResponse = ApiResponseType<Partial<SelectLink>>;
 
 export type AddFreeQuestionApiResponse = ApiResponseType<
     Partial<SelectFreeQuestion>

@@ -1,3 +1,9 @@
 export const TRIGGER_SCHEDULES = {
     CHECK_PENDING_BIDS_FOR_CREATION: "check-pending-bids-for-creation",
+    CHECK_EXPIRED_LINKS_FOR_RESULTS: "check-expired-links-for-results",
+} as const;
+
+export const TRIGGER_TASKS = {
+    SELECT_WINNING_BIDS_FOR_EXPIRED_LINK:
+        "select-winning-bids-for-expired-link",
 } as const;
