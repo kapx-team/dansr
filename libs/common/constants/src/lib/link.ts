@@ -1,3 +1,5 @@
+import BigNumber from "bignumber.js";
+
 export const BID_STATUSES = {
     PENDING: "pending",
     CREATED: "created",
@@ -24,3 +26,5 @@ export const BID_ANSWER_STATUSES = {
 
 export type BidAnswerStatus =
     (typeof BID_ANSWER_STATUSES)[keyof typeof BID_ANSWER_STATUSES];
+
+export const BID_FEES = new BigNumber(0.01);

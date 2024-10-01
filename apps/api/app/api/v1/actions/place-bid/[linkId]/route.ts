@@ -5,7 +5,7 @@ import {
     createDbUserService,
 } from "@dansr/api-services/db";
 import { getDansrBidsWalletAndKeypair } from "@dansr/api-utils";
-import { DB_ID_PREFIXES } from "@dansr/common-constants";
+import { BID_FEES, DB_ID_PREFIXES } from "@dansr/common-constants";
 import { generateDbId } from "@dansr/common-db";
 import { extractErrorMessage, getSolanaConnection } from "@dansr/common-utils";
 import {
@@ -184,14 +184,13 @@ export async function POST(req: NextRequest, { params }: Params) {
         const connection = getSolanaConnection(apiEnv.SOLANA_RPC_URL);
 
         const reference = Keypair.generate().publicKey;
-        const BID_FEE = new BigNumber(0.01);
 
         const tx = new Transaction();
 
         const solTransferInstruction = SystemProgram.transfer({
             fromPubkey: accountPubkey,
             toPubkey: new PublicKey(apiEnv.DANSR_BID_FEES_WALLET),
-            lamports: BID_FEE.times(LAMPORTS_PER_SOL).toNumber(),
+            lamports: BID_FEES.times(LAMPORTS_PER_SOL).toNumber(),
         });
 
         tx.add(solTransferInstruction);

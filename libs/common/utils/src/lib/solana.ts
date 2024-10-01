@@ -1,3 +1,4 @@
+import { BID_FEES } from "@dansr/common-constants";
 import { findReference, type ValidateTransferFields } from "@solana/pay";
 import { getAssociatedTokenAddressSync } from "@solana/spl-token";
 import {
@@ -95,13 +96,19 @@ export async function validatePaymentTransfer(
                         instruction.parsed.type === "transfer"
                 ) as ParsedInstruction;
         } else {
+            console.log(
+                "instructions",
+                parsedTransaction.transaction.message.instructions
+            );
             // SOL transfer
             transferInstruction =
                 parsedTransaction.transaction.message.instructions.find(
                     (instruction) =>
                         "parsed" in instruction &&
                         instruction.program === "system" &&
-                        instruction.parsed.type === "transfer"
+                        instruction.parsed.type === "transfer" &&
+                        instruction.parsed.info.lamports !==
+                            BID_FEES.times(LAMPORTS_PER_SOL).toNumber()
                 ) as ParsedInstruction;
         }
 
@@ -111,7 +118,7 @@ export async function validatePaymentTransfer(
             throw new Error("Transfer instruction not found in transaction");
         }
 
-        let decimals = LAMPORTS_PER_SOL;
+        let decimals = 9;
 
         if (splToken) {
             decimals = await getNumberDecimals(connection, splToken.toBase58());
@@ -120,7 +127,9 @@ export async function validatePaymentTransfer(
         console.log("decimals", decimals);
 
         const transferAmount = new BigNumber(
-            transferInstruction.parsed.info.amount
+            splToken
+                ? transferInstruction.parsed.info.amount
+                : transferInstruction.parsed.info.lamports
         ).dividedBy(10 ** decimals);
 
         if (!transferAmount.isEqualTo(amount)) {
