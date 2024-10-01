@@ -148,10 +148,20 @@ export function createDbLinksService() {
         return bid ?? null;
     }
 
+    async function getLinkBidByUserId(userId: string) {
+        const [bid] = await db
+            .select()
+            .from(linkBidsTable)
+            .where(eq(linkBidsTable.userId, userId));
+
+        return bid ?? null;
+    }
+
     return {
         getLinkWithCreatorInfo,
         createLinkBid,
         getLinkBids,
         getBidDetails,
+        getLinkBidByUserId,
     };
 }

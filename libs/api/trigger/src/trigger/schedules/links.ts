@@ -15,7 +15,7 @@ import { eq, getTableColumns } from "drizzle-orm";
 export const checkPendingBidsForCreation = schedules.task({
     id: TRIGGER_SCHEDULES.CHECK_PENDING_BIDS_FOR_CREATION,
     cron: "*/5 * * * *",
-    run: async (payload) => {
+    run: async () => {
         const pendingBids = await db
             .select({
                 ...getTableColumns(linkBidsTable),
@@ -58,6 +58,15 @@ export const checkPendingBidsForCreation = schedules.task({
                     );
 
                     logger.log("transaction", { txSig, isValidTransfer });
+
+                    if (isValidTransfer) {
+                        await db
+                            .update(linkBidsTable)
+                            .set({
+                                status: BID_STATUSES.CREATED,
+                            })
+                            .where(eq(linkBidsTable.id, bid.id));
+                    }
                 }
             }
         }

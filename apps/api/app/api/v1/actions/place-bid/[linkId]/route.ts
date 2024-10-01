@@ -168,6 +168,14 @@ export async function POST(req: NextRequest, { params }: Params) {
             throw new Error("Failed to find or create user!");
         }
 
+        const existingBid = await linksDbService.getLinkBidByUserId(user.id);
+
+        if (existingBid) {
+            return NextResponse.json({
+                error: "You have already placed a bid!",
+            });
+        }
+
         const bidAmount = new BigNumber(amount.toString());
 
         const connection = getSolanaConnection(apiEnv.SOLANA_RPC_URL);
@@ -198,7 +206,7 @@ export async function POST(req: NextRequest, { params }: Params) {
 
         if (!isSolTokenMint) {
             const tokenMintPubkey = new PublicKey(link.tokenMint);
-            const creatorTokenAccount = getAssociatedTokenAddressSync(
+            const dansrTokenAccount = getAssociatedTokenAddressSync(
                 tokenMintPubkey,
                 dansrBidsWallet
             );
@@ -209,7 +217,7 @@ export async function POST(req: NextRequest, { params }: Params) {
 
             const tokenTransferInstruction = createTransferInstruction(
                 bidderTokenAccount,
-                creatorTokenAccount,
+                dansrTokenAccount,
                 accountPubkey,
                 BigInt(bidAmount.times(10 ** token.decimals).toNumber())
             );
