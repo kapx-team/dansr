@@ -11,7 +11,7 @@ import {
     type InsertLinkBid,
     type InsertUser,
 } from "@dansr/common-db";
-import { eq, getTableColumns } from "drizzle-orm";
+import { and, eq, getTableColumns } from "drizzle-orm";
 
 export function createDbUserService() {
     const table = usersTable;
@@ -148,11 +148,22 @@ export function createDbLinksService() {
         return bid ?? null;
     }
 
-    async function getLinkBidByUserId(userId: string) {
+    async function getLinkBidByUserId({
+        userId,
+        linkId,
+    }: {
+        userId: string;
+        linkId: string;
+    }) {
         const [bid] = await db
             .select()
             .from(linkBidsTable)
-            .where(eq(linkBidsTable.userId, userId));
+            .where(
+                and(
+                    eq(linkBidsTable.userId, userId),
+                    eq(linkBidsTable.linkId, linkId)
+                )
+            );
 
         return bid ?? null;
     }

@@ -168,7 +168,10 @@ export async function POST(req: NextRequest, { params }: Params) {
             throw new Error("Failed to find or create user!");
         }
 
-        const existingBid = await linksDbService.getLinkBidByUserId(user.id);
+        const existingBid = await linksDbService.getLinkBidByUserId({
+            userId: user.id,
+            linkId,
+        });
 
         if (existingBid) {
             return NextResponse.json({
