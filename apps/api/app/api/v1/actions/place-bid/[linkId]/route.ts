@@ -177,14 +177,6 @@ export async function POST(req: NextRequest, { params }: Params) {
 
         const tx = new Transaction();
 
-        tx.add(
-            SystemProgram.transfer({
-                fromPubkey: accountPubkey,
-                toPubkey: reference,
-                lamports: 0,
-            })
-        );
-
         const solTransferInstruction = SystemProgram.transfer({
             fromPubkey: accountPubkey,
             toPubkey: new PublicKey(apiEnv.DANSR_BID_FEES_WALLET),
@@ -231,6 +223,14 @@ export async function POST(req: NextRequest, { params }: Params) {
             });
 
             tx.add(solTransferInstruction);
+        }
+
+        if (reference) {
+            tx.instructions[1].keys.push({
+                pubkey: reference,
+                isWritable: false,
+                isSigner: false,
+            });
         }
 
         const priorityFee = await connection.getRecentPrioritizationFees();
