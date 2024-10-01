@@ -13,12 +13,19 @@ import {
     type ActionPostRequest,
 } from "@solana/actions";
 import {
-    createTransfer,
-    encodeURL,
-    type CreateTransferFields,
-} from "@solana/pay";
-import { ComputeBudgetProgram, Keypair, PublicKey } from "@solana/web3.js";
+    createTransferInstruction,
+    getAssociatedTokenAddressSync,
+} from "@solana/spl-token";
+import {
+    ComputeBudgetProgram,
+    Keypair,
+    LAMPORTS_PER_SOL,
+    PublicKey,
+    SystemProgram,
+    Transaction,
+} from "@solana/web3.js";
 import BigNumber from "bignumber.js";
+import bs58 from "bs58";
 import { NextResponse, type NextRequest } from "next/server";
 
 type Params = {
@@ -71,7 +78,7 @@ export async function GET(req: NextRequest, { params }: Params) {
                             },
                             {
                                 name: "amount",
-                                label: "Enter the bid amount",
+                                label: `Enter the bid amount in ${token.symbol}`,
                                 required: true,
                                 type: "number",
                                 min: link.baseAmount,
@@ -165,31 +172,61 @@ export async function POST(req: NextRequest, { params }: Params) {
 
         const connection = getSolanaConnection(apiEnv.SOLANA_RPC_URL);
 
-        const memo = `Link-Bid-${linkId}`;
-        const reference = new Keypair().publicKey;
+        const reference = Keypair.generate().publicKey;
         const BID_FEE = new BigNumber(0.01);
 
-        const transferData = {
-            recipient: new PublicKey(apiEnv.DANSR_BID_FEES_WALLET),
-            amount: BID_FEE,
-            memo,
-            reference,
-        } satisfies CreateTransferFields;
+        const tx = new Transaction();
 
-        const solanaPayUrl = encodeURL(transferData).toString();
+        const solTransferInstruction = SystemProgram.transfer({
+            fromPubkey: accountPubkey,
+            toPubkey: new PublicKey(apiEnv.DANSR_BID_FEES_WALLET),
+            lamports: BID_FEE.times(LAMPORTS_PER_SOL).toNumber(),
+        });
 
-        const tx = await createTransfer(
-            connection,
+        tx.add(solTransferInstruction);
+
+        const dansrBidsWalletKeypair = Keypair.fromSecretKey(
+            bs58.decode(apiEnv.DANSR_BIDS_WALLET_PRIVATE_KEY)
+        );
+
+        const dansrBidsWallet = dansrBidsWalletKeypair.publicKey;
+
+        const token = await getToken(link.tokenMint);
+        if (!token) {
+            throw new Error("Invalid token mint!");
+        }
+
+        const tokenMintPubkey = new PublicKey(link.tokenMint);
+        const creatorTokenAccount = getAssociatedTokenAddressSync(
+            tokenMintPubkey,
+            dansrBidsWallet
+        );
+        const bidderTokenAccount = getAssociatedTokenAddressSync(
+            tokenMintPubkey,
+            accountPubkey
+        );
+
+        const tokenTransferInstruction = createTransferInstruction(
+            bidderTokenAccount,
+            creatorTokenAccount,
             accountPubkey,
-            transferData
+            BigInt(bidAmount.times(10 ** token.decimals).toNumber())
+        );
+
+        tx.add(tokenTransferInstruction);
+
+        tx.add(
+            SystemProgram.transfer({
+                fromPubkey: accountPubkey,
+                toPubkey: reference,
+                lamports: 0,
+            })
         );
 
         const priorityFee = await connection.getRecentPrioritizationFees();
-
         const addPriorityFee = ComputeBudgetProgram.setComputeUnitPrice({
             microLamports: priorityFee[0].prioritizationFee,
         });
-
         tx.add(addPriorityFee);
 
         const bidId = generateDbId(DB_ID_PREFIXES.LINK_BID);
@@ -201,15 +238,11 @@ export async function POST(req: NextRequest, { params }: Params) {
             amount: bidAmount.toNumber(),
             bidderXUsername: xUsername,
             message,
-            solanaPayUrl,
+            reference: reference.toBase58(), // Store the reference in the database
         });
 
         tx.feePayer = accountPubkey;
-        tx.recentBlockhash = (
-            await getSolanaConnection(
-                apiEnv.SOLANA_RPC_URL
-            ).getLatestBlockhash()
-        ).blockhash;
+        tx.recentBlockhash = (await connection.getLatestBlockhash()).blockhash;
 
         const result = await createPostResponse({
             fields: {

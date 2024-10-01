@@ -39,9 +39,9 @@ export const linkBidsTable = mysqlTable("link_bids", {
     })
         .notNull()
         .default(BID_STATUSES.PENDING),
-    paymentStatus: getMysqlEnumFromConstants({
+    refundStatus: getMysqlEnumFromConstants({
         constants: BID_PAYMENT_STATUSES,
-        columnName: "payment_status",
+        columnName: "refund_status",
     })
         .notNull()
         .default(BID_PAYMENT_STATUSES.PENDING),
@@ -53,5 +53,11 @@ export const linkBidsTable = mysqlTable("link_bids", {
         .default(BID_ANSWER_STATUSES.PENDING),
     answer: text("answer"),
     answeredOn: timestamp("answered_on"),
-    solanaPayUrl: text("solana_pay_url").notNull(),
+    reference: varchar("reference", {
+        length: 44,
+    }).notNull(),
+    refundedOn: timestamp("refunded_on"),
+    refundTxSignature: varchar("refund_tx_signature", {
+        length: 70,
+    }),
 });

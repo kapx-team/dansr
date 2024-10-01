@@ -58,7 +58,8 @@ const envSchema = z.object({
     ASK_DANSR_X_ACCESS_SECRET: z.string().min(1),
 
     // wallets
-    DANSR_BID_FEES_WALLET: z.string().max(44),
+    DANSR_BID_FEES_WALLET: z.string().min(1).max(44),
+    DANSR_BIDS_WALLET_PRIVATE_KEY: z.string().min(1),
 });
 
 export const apiEnv = parseEnv({
