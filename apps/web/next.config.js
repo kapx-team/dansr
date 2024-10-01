@@ -37,7 +37,8 @@ const nextConfig = {
             },
             {
                 source: "/deck",
-                destination: "/dansr-deck.pdf",
+                destination:
+                    "https://www.canva.com/design/DAGSVB43cAw/xE2ElNSJnRTNYAJAKQlZPg/view",
             },
         ];
     },
