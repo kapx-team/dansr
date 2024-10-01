@@ -4,6 +4,7 @@ import {
     createDbLinksService,
     createDbUserService,
 } from "@dansr/api-services/db";
+import { getDansrBidsWalletAndKeypair } from "@dansr/api-utils";
 import { DB_ID_PREFIXES } from "@dansr/common-constants";
 import { generateDbId } from "@dansr/common-db";
 import { extractErrorMessage, getSolanaConnection } from "@dansr/common-utils";
@@ -25,7 +26,6 @@ import {
     Transaction,
 } from "@solana/web3.js";
 import BigNumber from "bignumber.js";
-import bs58 from "bs58";
 import { NextResponse, type NextRequest } from "next/server";
 
 type Params = {
@@ -177,6 +177,14 @@ export async function POST(req: NextRequest, { params }: Params) {
 
         const tx = new Transaction();
 
+        tx.add(
+            SystemProgram.transfer({
+                fromPubkey: accountPubkey,
+                toPubkey: reference,
+                lamports: 0,
+            })
+        );
+
         const solTransferInstruction = SystemProgram.transfer({
             fromPubkey: accountPubkey,
             toPubkey: new PublicKey(apiEnv.DANSR_BID_FEES_WALLET),
@@ -185,43 +193,45 @@ export async function POST(req: NextRequest, { params }: Params) {
 
         tx.add(solTransferInstruction);
 
-        const dansrBidsWalletKeypair = Keypair.fromSecretKey(
-            bs58.decode(apiEnv.DANSR_BIDS_WALLET_PRIVATE_KEY)
-        );
-
-        const dansrBidsWallet = dansrBidsWalletKeypair.publicKey;
+        const { wallet: dansrBidsWallet } = getDansrBidsWalletAndKeypair();
 
         const token = await getToken(link.tokenMint);
+
         if (!token) {
             throw new Error("Invalid token mint!");
         }
 
-        const tokenMintPubkey = new PublicKey(link.tokenMint);
-        const creatorTokenAccount = getAssociatedTokenAddressSync(
-            tokenMintPubkey,
-            dansrBidsWallet
-        );
-        const bidderTokenAccount = getAssociatedTokenAddressSync(
-            tokenMintPubkey,
-            accountPubkey
-        );
+        const isSolTokenMint =
+            token.address === "So11111111111111111111111111111111111111112";
 
-        const tokenTransferInstruction = createTransferInstruction(
-            bidderTokenAccount,
-            creatorTokenAccount,
-            accountPubkey,
-            BigInt(bidAmount.times(10 ** token.decimals).toNumber())
-        );
+        if (!isSolTokenMint) {
+            const tokenMintPubkey = new PublicKey(link.tokenMint);
+            const creatorTokenAccount = getAssociatedTokenAddressSync(
+                tokenMintPubkey,
+                dansrBidsWallet
+            );
+            const bidderTokenAccount = getAssociatedTokenAddressSync(
+                tokenMintPubkey,
+                accountPubkey
+            );
 
-        tx.add(tokenTransferInstruction);
+            const tokenTransferInstruction = createTransferInstruction(
+                bidderTokenAccount,
+                creatorTokenAccount,
+                accountPubkey,
+                BigInt(bidAmount.times(10 ** token.decimals).toNumber())
+            );
 
-        tx.add(
-            SystemProgram.transfer({
+            tx.add(tokenTransferInstruction);
+        } else {
+            const solTransferInstruction = SystemProgram.transfer({
                 fromPubkey: accountPubkey,
-                toPubkey: reference,
-                lamports: 0,
-            })
-        );
+                toPubkey: dansrBidsWallet,
+                lamports: bidAmount.times(LAMPORTS_PER_SOL).toNumber(),
+            });
+
+            tx.add(solTransferInstruction);
+        }
 
         const priorityFee = await connection.getRecentPrioritizationFees();
         const addPriorityFee = ComputeBudgetProgram.setComputeUnitPrice({

@@ -33,6 +33,7 @@
             "@dansr/common-utils": ["libs/common/utils/src/index.ts"],
             "@dansr/common-utils/*": ["libs/common/utils/src/lib/*"],
             "@dansr/common-validators": ["libs/common/validators/src/index.ts"],
+            "@dansr/trigger": ["libs/api/trigger/src/index.ts"],
             "@dansr/web-env": ["libs/web/env/src/index.ts"],
             "@dansr/web-hooks": ["libs/web/hooks/src/index.ts"],
             "@dansr/web-store": ["libs/web/store/src/index.ts"],
