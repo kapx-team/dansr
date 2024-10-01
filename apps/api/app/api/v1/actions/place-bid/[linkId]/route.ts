@@ -68,7 +68,7 @@ export async function GET(req: NextRequest, { params }: Params) {
                 actions: [
                     {
                         label,
-                        href: `/api/v1/actions/place-bid/${linkId}?message={message}&amount={amount}&x_username={x_username}`,
+                        href: `/v1/actions/place-bid/${linkId}?message={message}&amount={amount}&x_username={x_username}`,
                         parameters: [
                             {
                                 name: "message",
