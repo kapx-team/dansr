@@ -197,6 +197,9 @@ importers:
       usehooks-ts:
         specifier: ^3.1.0
         version: 3.1.0(react@18.3.1)
+      v3:
+        specifier: link:@trigger.dev/sdk/v3
+        version: link:@trigger.dev/sdk/v3
       zod:
         specifier: ^3.23.8
         version: 3.23.8
