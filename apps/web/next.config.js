@@ -35,11 +35,6 @@ const nextConfig = {
                 source: "/ingest/:path*",
                 destination: "https://us.i.posthog.com/:path*",
             },
-            {
-                source: "/deck",
-                destination:
-                    "https://www.canva.com/design/DAGSVB43cAw/xE2ElNSJnRTNYAJAKQlZPg/view",
-            },
         ];
     },
     async redirects() {
@@ -47,6 +42,12 @@ const nextConfig = {
             {
                 source: "/qr",
                 destination: "https://dansr.io",
+                permanent: true,
+            },
+            {
+                source: "/deck",
+                destination:
+                    "https://www.canva.com/design/DAGSVB43cAw/xE2ElNSJnRTNYAJAKQlZPg/view",
                 permanent: true,
             },
         ];
