@@ -8,11 +8,7 @@ export function getApiFreeQuestionsService(apiInstance: KyInstance) {
             .post("free-questions", { json: data })
             .json<AddFreeQuestionApiResponse>();
 
-        if (!response.success) {
-            throw new Error("Failed to add free question!");
-        }
-
-        return response.result;
+        return response;
     }
 
     return {
