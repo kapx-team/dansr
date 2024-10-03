@@ -1,4 +1,6 @@
 import type {
+    Link,
+    LinkBid,
     SelectFreeQuestion,
     SelectLink,
     SelectUser,
@@ -39,4 +41,17 @@ export type GetAuthenticatedUserApiResponse = ApiResponseType<SelectUser>;
 
 export type XSigninCallbackApiResponse = ApiResponseType<{
     userId: string;
+}>;
+
+export type GetLinksApiResponse = ApiResponseType<SelectLink[]>;
+
+export type GetLinkDetailsApiResponse = ApiResponseType<Link>;
+
+export type GetLinkBidsApiResponse = ApiResponseType<LinkBid[]>;
+
+export type GetCreatorLinksApiResponse = ApiResponseType<SelectLink[]>;
+
+export type AnswerBidApiResponse = ApiResponseType<{
+    bidId: string;
+    answer: string;
 }>;

@@ -7,3 +7,9 @@ export * from "./lib/pages/home/CreatorsSection";
 export * from "./lib/pages/home/QuestionForm";
 
 export * from "./lib/pages/dashboard/Sidebar";
+
+export * from "./lib/pages/dashboard/links/CreateLinkButton";
+export * from "./lib/pages/dashboard/links/LinkList";
+
+export * from "./lib/pages/dashboard/links/BidsTable";
+export * from "./lib/pages/dashboard/links/LinkDetails";

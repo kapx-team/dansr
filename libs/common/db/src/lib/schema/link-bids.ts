@@ -60,4 +60,15 @@ export const linkBidsTable = mysqlTable("link_bids", {
     refundTxSignature: varchar("refund_tx_signature", {
         length: 70,
     }),
+    creatorPaymentStatus: getMysqlEnumFromConstants({
+        constants: BID_PAYMENT_STATUSES,
+        columnName: "creator_payment_status",
+    })
+        .notNull()
+        .default(BID_PAYMENT_STATUSES.PENDING),
+    creatorPaymentTxSignature: varchar("creator_payment_tx_signature", {
+        length: 70,
+    }),
+    creatorPaidOn: timestamp("creator_paid_on"),
+    creatorPaymentAmount: float("creator_payment_amount"),
 });

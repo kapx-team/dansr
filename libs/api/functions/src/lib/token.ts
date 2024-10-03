@@ -1,24 +1,7 @@
 import redis, { REDIS_KEYS } from "@dansr/api-services/redis";
+import type { JupagToken } from "@dansr/common-db";
 import { hoursToSeconds } from "date-fns";
 import ky from "ky";
-
-type JupagToken = {
-    address: string;
-    name: string;
-    symbol: string;
-    decimals: number;
-    logoURI: string;
-    tags: string[];
-    daily_volume: number;
-    created_at: string;
-    freeze_authority: string | null;
-    mint_authority: string | null;
-    permanent_delegate: string | null;
-    minted_at: string | null;
-    extensions: {
-        coingeckoId: string;
-    };
-};
 
 export async function getTokens(verified = true) {
     const basedUrl = new URL(`https://tokens.jup.ag/tokens`);

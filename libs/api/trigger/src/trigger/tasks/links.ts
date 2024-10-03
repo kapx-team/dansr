@@ -1,7 +1,14 @@
 import { BID_STATUSES, TRIGGER_TASKS } from "@dansr/common-constants";
-import { db, linkBidsTable, linksTable } from "@dansr/common-db";
+import { db, linkBidsTable, linksTable, usersTable } from "@dansr/common-db";
 import { task } from "@trigger.dev/sdk/v3";
-import { and, desc, eq, inArray, notInArray } from "drizzle-orm";
+import {
+    and,
+    desc,
+    eq,
+    getTableColumns,
+    inArray,
+    notInArray,
+} from "drizzle-orm";
 
 export const selectWinningBidsForExpiredLink = task({
     id: TRIGGER_TASKS.SELECT_WINNING_BIDS_FOR_EXPIRED_LINK,
@@ -9,8 +16,12 @@ export const selectWinningBidsForExpiredLink = task({
         const { linkId } = payload;
 
         const [link] = await db
-            .select()
+            .select({
+                ...getTableColumns(linksTable),
+                creator: getTableColumns(usersTable),
+            })
             .from(linksTable)
+            .innerJoin(usersTable, eq(linksTable.creatorId, usersTable.id))
             .where(eq(linksTable.id, linkId));
 
         if (!link) {

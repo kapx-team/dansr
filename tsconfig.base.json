@@ -39,7 +39,8 @@
             "@dansr/web-store": ["libs/web/store/src/index.ts"],
             "@dansr/web-ui": ["libs/web/ui/src/index.ts"],
             "@dansr/web-ui/server": ["libs/web/ui/src/server.ts"],
-            "@dansr/web-utils": ["libs/web/utils/src/index.ts"]
+            "@dansr/web-utils": ["libs/web/utils/src/index.ts"],
+            "@dansr/web-utils/server": ["libs/web/utils/src/server.ts"]
         }
     },
     "exclude": ["node_modules", "tmp"]

@@ -8,10 +8,34 @@ import {
     linksTable,
     type InsertLink,
 } from "@dansr/common-db";
-import type { GenerateLinkApiResponse } from "@dansr/common-types";
+import type {
+    GenerateLinkApiResponse,
+    GetLinksApiResponse,
+} from "@dansr/common-types";
 import { generateLinkSchema } from "@dansr/common-validators";
 import { addDays, addHours } from "date-fns";
 import { type NextRequest } from "next/server";
+
+export async function GET(req: NextRequest) {
+    const apiResponseHandler = new ApiResponseHandler(req);
+
+    try {
+        const { user } = await getAuthenticatedUser([USER_TYPES.ADMIN]);
+
+        if (!user) {
+            return apiResponseHandler.authError();
+        }
+
+        const links = await db.select().from(linksTable);
+
+        return apiResponseHandler.success<GetLinksApiResponse>(
+            links,
+            "Links fetched successfully!"
+        );
+    } catch (error) {
+        return apiResponseHandler.serverError(error);
+    }
+}
 
 export async function POST(req: NextRequest) {
     const apiResponseHandler = new ApiResponseHandler(req);

@@ -4,24 +4,20 @@ import { useQuery } from "@tanstack/react-query";
 import { usePostHog, type PostHog } from "posthog-js/react";
 
 const queryFn = async (posthog: PostHog) => {
-    const response = await apiClient.auth.getAuthenticatedUser();
-
-    if (!response.success) {
-        return null;
-    }
+    const user = await apiClient.auth.getAuthenticatedUser();
 
     posthog?.identify(
-        response.result.id,
+        user.id,
         {
-            name: response.result.name,
-            email: response.result.email,
+            name: user.name,
+            email: user.email,
         },
         {
             firstLoginAt: new Date().toUTCString(),
         }
     );
 
-    return response.result;
+    return user;
 };
 
 export function useAuthenticatedUser() {

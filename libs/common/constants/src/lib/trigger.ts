@@ -4,6 +4,7 @@ export const TRIGGER_SCHEDULES = {
 } as const;
 
 export const TRIGGER_TASKS = {
+    PAY_CREATOR_FOR_ANSWERING_BID: "pay-creator-for-answering-bid",
     SELECT_WINNING_BIDS_FOR_EXPIRED_LINK:
         "select-winning-bids-for-expired-link",
 } as const;
