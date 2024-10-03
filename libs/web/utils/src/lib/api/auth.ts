@@ -25,11 +25,7 @@ export function getApiAuthService(apiInstance: KyInstance) {
             .post("auth/x/signin", { json: { inviteCode } })
             .json<GetXSigninUrlApiResponse>();
 
-        if (!response.success) {
-            throw new Error("Failed to fetch X signin URL!");
-        }
-
-        return response.result;
+        return response;
     }
 
     async function xSigninCallback(data: XSigninCallbackSchema) {
@@ -37,11 +33,7 @@ export function getApiAuthService(apiInstance: KyInstance) {
             .post("auth/x/callback", { json: data })
             .json<XSigninCallbackApiResponse>();
 
-        if (!response.success) {
-            throw new Error("Failed to signin with X!");
-        }
-
-        return response.result;
+        return response;
     }
 
     async function signOutUser() {
@@ -49,11 +41,7 @@ export function getApiAuthService(apiInstance: KyInstance) {
             .post("auth/signout")
             .json<UserSignOutApiResponse>();
 
-        if (!response.success) {
-            throw new Error("Failed to signout user!");
-        }
-
-        return response.result;
+        return response;
     }
 
     return {

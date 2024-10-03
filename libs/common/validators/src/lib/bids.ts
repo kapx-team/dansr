@@ -10,3 +10,5 @@ export const answerBidSchema = z.object({
             message: "Answer must be at least 3 character",
         }),
 });
+
+export type AnswerBidSchema = z.infer<typeof answerBidSchema>;

@@ -54,4 +54,5 @@ export type GetCreatorLinksApiResponse = ApiResponseType<SelectLink[]>;
 export type AnswerBidApiResponse = ApiResponseType<{
     bidId: string;
     answer: string;
+    linkId: string;
 }>;

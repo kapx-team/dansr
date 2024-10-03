@@ -21,13 +21,13 @@ export const linkBidsTable = mysqlTable("link_bids", {
     ...getCommonSchemaAttributes(DB_ID_PREFIXES.LINK_BID),
     linkId: varchar("link_id", {
         length: getDbIdLength(DB_ID_PREFIXES.LINK),
-    }),
+    }).notNull(),
     userId: varchar("user_id", {
         length: getDbIdLength(DB_ID_PREFIXES.USER),
-    }),
+    }).notNull(),
     amount: float("amount").notNull(),
     bidTxSignature: varchar("bid_tx_signature", {
-        length: 70,
+        length: 90,
     }),
     bidderXUsername: varchar("bidder_x_username", {
         length: 20,
@@ -58,7 +58,7 @@ export const linkBidsTable = mysqlTable("link_bids", {
     }).notNull(),
     refundedOn: timestamp("refunded_on"),
     refundTxSignature: varchar("refund_tx_signature", {
-        length: 70,
+        length: 90,
     }),
     creatorPaymentStatus: getMysqlEnumFromConstants({
         constants: BID_PAYMENT_STATUSES,
@@ -67,7 +67,7 @@ export const linkBidsTable = mysqlTable("link_bids", {
         .notNull()
         .default(BID_PAYMENT_STATUSES.PENDING),
     creatorPaymentTxSignature: varchar("creator_payment_tx_signature", {
-        length: 70,
+        length: 90,
     }),
     creatorPaidOn: timestamp("creator_paid_on"),
     creatorPaymentAmount: float("creator_payment_amount"),

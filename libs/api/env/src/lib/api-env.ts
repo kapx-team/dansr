@@ -60,6 +60,9 @@ const envSchema = z.object({
     // wallets
     DANSR_BID_FEES_WALLET: z.string().min(1).max(44),
     DANSR_BIDS_WALLET_PRIVATE_KEY: z.string().min(1),
+
+    // trigger
+    TRIGGER_SECRET_KEY: z.string().min(1),
 });
 
 export const apiEnv = parseEnv({

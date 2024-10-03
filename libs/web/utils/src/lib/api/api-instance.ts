@@ -1,6 +1,7 @@
 import { webEnv } from "@dansr/web-env";
 import ky from "ky";
 import { getApiAuthService } from "./auth";
+import { getApiBidsService } from "./bids";
 import { getApiCreatorsService } from "./creators";
 import { getApiFreeQuestionsService } from "./free-questions";
 import { getApiLinksService } from "./links";
@@ -13,6 +14,7 @@ export const apiInstance = ky.create({
 });
 
 export const apiClient = {
+    bids: getApiBidsService(apiInstance),
     links: getApiLinksService(apiInstance),
     auth: getApiAuthService(apiInstance),
     freeQuestions: getApiFreeQuestionsService(apiInstance),

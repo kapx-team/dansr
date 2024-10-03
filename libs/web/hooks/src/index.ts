@@ -10,3 +10,5 @@ export * from "./lib/free-questions/useSubmitFreeQuestion";
 export * from "./lib/creators/useCreatorLinks";
 
 export * from "./lib/links/useLinkBids";
+
+export * from "./lib/bids/useAnswerBid";

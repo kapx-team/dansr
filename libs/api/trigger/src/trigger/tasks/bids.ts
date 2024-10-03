@@ -22,6 +22,9 @@ import { and, eq, getTableColumns } from "drizzle-orm";
 
 export const payCreatorForAnsweringBid = task({
     id: TRIGGER_TASKS.PAY_CREATOR_FOR_ANSWERING_BID,
+    retry: {
+        maxAttempts: 0,
+    },
     run: async (payload: { bidId: string }) => {
         const { bidId } = payload;
 

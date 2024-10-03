@@ -5,11 +5,11 @@ import {
     BID_STATUSES,
     USER_TYPES,
 } from "@dansr/common-constants";
-import { db, linkBidsTable } from "@dansr/common-db";
+import { db, linkBidsTable, linksTable } from "@dansr/common-db";
 import type { AnswerBidApiResponse } from "@dansr/common-types";
 import { answerBidSchema } from "@dansr/common-validators";
 import { payCreatorForAnsweringBid } from "@dansr/trigger";
-import { eq } from "drizzle-orm";
+import { eq, getTableColumns } from "drizzle-orm";
 import { type NextRequest } from "next/server";
 
 type Params = {
@@ -27,8 +27,12 @@ export async function POST(req: NextRequest, { params }: Params) {
         const { user } = await getAuthenticatedUser([USER_TYPES.CREATOR]);
 
         const [bid] = await db
-            .select()
+            .select({
+                ...getTableColumns(linkBidsTable),
+                link: getTableColumns(linksTable),
+            })
             .from(linkBidsTable)
+            .innerJoin(linksTable, eq(linkBidsTable.linkId, linksTable.id))
             .where(eq(linkBidsTable.id, bidId));
 
         if (!bid) {
@@ -43,7 +47,7 @@ export async function POST(req: NextRequest, { params }: Params) {
             return apiResponseHandler.clientError("Bid already answered!");
         }
 
-        if (!user || user?.id !== bid?.userId) {
+        if (!user || user?.id !== bid?.link?.creatorId) {
             return apiResponseHandler.authError();
         }
 
@@ -83,6 +87,7 @@ export async function POST(req: NextRequest, { params }: Params) {
             {
                 bidId,
                 answer,
+                linkId: bid.linkId,
             },
             "Bid answered successfully!"
         );
