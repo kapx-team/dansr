@@ -58,14 +58,30 @@ export async function POST(req: NextRequest) {
             oauthTokenSecret,
         });
 
-        const xUserClient = getXUserClient(oauthToken, oauthTokenSecret);
+        let xUserClient = getXUserClient(oauthToken, oauthTokenSecret);
 
         const result = await xUserClient.login(oauthVerifier);
 
         const encryptedAccessToken = encryptToken(result.accessToken);
         const encryptedAccessSecret = encryptToken(result.accessSecret);
 
+        xUserClient = getXUserClient(result.accessToken, result.accessSecret);
+
         let userId;
+        let profileImageUrl: string | undefined;
+
+        console.log("fetching x user =>");
+
+        const user = await xUserClient.currentUser();
+
+        console.log("x user =>", user);
+
+        if (user.profile_image_url_https) {
+            profileImageUrl = user.profile_image_url_https.replace(
+                "_normal",
+                ""
+            );
+        }
 
         if (oauthTokenUserId) {
             await db
@@ -76,6 +92,7 @@ export async function POST(req: NextRequest) {
                     xAccessToken: encryptedAccessToken,
                     xAccessSecret: encryptedAccessSecret,
                     lastLoginAt: new Date(),
+                    profileImageUrl,
                 })
                 .where(eq(usersTable.id, oauthTokenUserId));
 
@@ -106,6 +123,7 @@ export async function POST(req: NextRequest) {
                         xAccessSecret: encryptedAccessSecret,
                         type: "creator",
                         lastLoginAt: new Date(),
+                        profileImageUrl,
                     });
 
                     const creatorId = generateDbId(DB_ID_PREFIXES.CREATOR);
@@ -136,6 +154,7 @@ export async function POST(req: NextRequest) {
                         xAccessToken: encryptedAccessToken,
                         xAccessSecret: encryptedAccessSecret,
                         lastLoginAt: new Date(),
+                        profileImageUrl,
                     })
                     .where(eq(usersTable.xId, result.userId));
 

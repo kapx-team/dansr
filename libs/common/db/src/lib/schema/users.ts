@@ -19,7 +19,7 @@ export const usersTable = mysqlTable(
     {
         ...getCommonSchemaAttributes(DB_ID_PREFIXES.USER),
         name: getDbNameColumn(),
-        profileImage: varchar("profile_image", { length: 200 }),
+        profileImageUrl: varchar("profile_image_url", { length: 200 }),
         email: getDbEmailColumn(),
         wallet: getDbWalletColumn(),
         notificationPreference: json("notification_preference")

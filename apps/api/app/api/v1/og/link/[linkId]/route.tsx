@@ -8,15 +8,6 @@ import { NextResponse } from "next/server";
 
 export const runtime = "edge";
 
-function formatAmount(amount: number): string {
-    return new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-    }).format(amount);
-}
-
 export async function GET(
     req: NextRequest,
     { params }: { params: { linkId: string } }
@@ -54,6 +45,18 @@ export async function GET(
                         padding: "40px",
                     }}
                 >
+                    {link.creator.profileImageUrl && (
+                        <img
+                            src={link.creator.profileImageUrl}
+                            alt="Creator"
+                            style={{
+                                width: "100px",
+                                height: "100px",
+                                borderRadius: "50%",
+                            }}
+                        />
+                    )}
+
                     <h1 style={{ fontSize: 48, marginBottom: "20px" }}>
                         Bid for @{link.creator.xHandle} attention
                     </h1>
@@ -70,7 +73,7 @@ export async function GET(
                     >
                         <InfoItem
                             label="Base Amount"
-                            value={formatAmount(link.baseAmount)}
+                            value={`${link.baseAmount.toString()}`}
                             icon="💰"
                         />
                         <InfoItem

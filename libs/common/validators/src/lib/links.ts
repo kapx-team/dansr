@@ -56,3 +56,5 @@ export const generateLinkSchema = z.object({
             "Expiration must be one of the following: 1h, 3h, 6h, 12h, 1d, 2d",
     }),
 });
+
+export type CreateLinkSchema = z.infer<typeof generateLinkSchema>;

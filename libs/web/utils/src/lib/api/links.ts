@@ -1,11 +1,21 @@
 import type {
+    GenerateLinkApiResponse,
     GetLinkBidsApiResponse,
     GetLinkDetailsApiResponse,
     GetLinksApiResponse,
 } from "@dansr/common-types";
+import type { CreateLinkSchema } from "@dansr/common-validators";
 import type { KyInstance } from "ky";
 
 export function getApiLinksService(apiInstance: KyInstance) {
+    async function createLink(data: CreateLinkSchema) {
+        const response = await apiInstance
+            .post(`links`, { json: data })
+            .json<GenerateLinkApiResponse>();
+
+        return response;
+    }
+
     async function getLinks() {
         const response = await apiInstance
             .get(`links`)
@@ -46,5 +56,6 @@ export function getApiLinksService(apiInstance: KyInstance) {
         getLinks,
         getLinkDetails,
         getLinkBids,
+        createLink,
     };
 }
