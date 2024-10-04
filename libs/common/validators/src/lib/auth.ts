@@ -14,6 +14,10 @@ export const getWalletSignInMessageSchema = z.object({
         }),
 });
 
+export type GetWalletSignInMessageSchema = z.infer<
+    typeof getWalletSignInMessageSchema
+>;
+
 export const xSigninCallbackSchema = z.object({
     oauthToken: z
         .string({
@@ -47,6 +51,10 @@ export const walletSignInRequestSchema = z.object({
         })
         .min(1, { message: "Signature is required!" }),
 });
+
+export type WalletSignInRequestSchema = z.infer<
+    typeof walletSignInRequestSchema
+>;
 
 export const xSigninSchema = z.object({
     inviteCode: z

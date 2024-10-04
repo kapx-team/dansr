@@ -1,5 +1,7 @@
 "use client";
 
+import { USER_TYPES } from "@dansr/common-constants";
+import { Button } from "@dansr/common-ui";
 import { logError } from "@dansr/common-utils";
 import {
     useAuthenticatedUser,
@@ -14,7 +16,7 @@ export function XLogin() {
     const router = useRouter();
     const { mutateAsync, isPending } = useGetXSigninUrl();
     const useXSigninCallbackMutation = useXSigninCallback();
-    const { data } = useAuthenticatedUser();
+    const { data, isLoading } = useAuthenticatedUser();
     const searchParams = useSearchParams();
 
     const oauthToken = searchParams.get("oauth_token");
@@ -78,23 +80,24 @@ export function XLogin() {
         }
     }, [data]); //eslint-disable-line
 
+    if (isLoading) {
+        return null;
+    }
+
+    if (data) {
+        if (data.type !== USER_TYPES.CREATOR) {
+            return null;
+        }
+
+        return <SignoutButton />;
+    }
+
     return (
-        <div className="flex flex-col gap-4">
-            {!data && !isPending && (
-                <button onClick={handleXLogin} disabled={isPending}>
-                    X Login
-                </button>
-            )}
-
-            {data && (
-                <div>
-                    <SignoutButton />
-
-                    <div className="break-words w-[500px]">
-                        {JSON.stringify(data)}
-                    </div>
-                </div>
-            )}
-        </div>
+        <Button
+            onClick={handleXLogin}
+            isLoading={isPending || useXSigninCallbackMutation.isPending}
+        >
+            Signin with X as Creator
+        </Button>
     );
 }

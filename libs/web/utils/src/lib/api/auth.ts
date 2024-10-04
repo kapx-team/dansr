@@ -1,10 +1,16 @@
 import type {
     GetAuthenticatedUserApiResponse,
+    GetWalletSignInMessageApiResponse,
     GetXSigninUrlApiResponse,
     UserSignOutApiResponse,
+    WalletSignInRequestApiResponse,
     XSigninCallbackApiResponse,
 } from "@dansr/common-types";
-import type { XSigninCallbackSchema } from "@dansr/common-validators";
+import type {
+    GetWalletSignInMessageSchema,
+    WalletSignInRequestSchema,
+    XSigninCallbackSchema,
+} from "@dansr/common-validators";
 import type { KyInstance } from "ky";
 
 export function getApiAuthService(apiInstance: KyInstance) {
@@ -44,10 +50,28 @@ export function getApiAuthService(apiInstance: KyInstance) {
         return response;
     }
 
+    async function getWalletSigninMessage(data: GetWalletSignInMessageSchema) {
+        const response = await apiInstance
+            .post("auth/wallet/signin-message", { json: data })
+            .json<GetWalletSignInMessageApiResponse>();
+
+        return response;
+    }
+
+    async function walletSigninRequest(data: WalletSignInRequestSchema) {
+        const response = await apiInstance
+            .post("auth/wallet/signin", { json: data })
+            .json<WalletSignInRequestApiResponse>();
+
+        return response;
+    }
+
     return {
         getAuthenticatedUser,
         getXSigninUrl,
         xSigninCallback,
         signOutUser,
+        getWalletSigninMessage,
+        walletSigninRequest,
     };
 }

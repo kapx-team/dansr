@@ -1,4 +1,4 @@
-import { XLogin } from "@dansr/web-ui";
+import { WalletLogin, XLogin } from "@dansr/web-ui";
 import { Suspense } from "react";
 
 export default function AuthPage() {
@@ -16,7 +16,11 @@ export default function AuthPage() {
             space-y-2 md:-space-y-2 text-center"
             >
                 <Suspense fallback={<div>Loading...</div>}>
-                    <XLogin />
+                    <div className="flex flex-col gap-4">
+                        <XLogin />
+                        <hr className="w-full my-6" />
+                        <WalletLogin />
+                    </div>
                 </Suspense>
             </div>
         </div>

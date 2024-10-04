@@ -6,7 +6,6 @@ export * from "./lib/PageLoader";
 export * from "./lib/providers";
 export * from "./lib/Tabs";
 export * from "./lib/ToastNotificationDisplay";
-export * from "./lib/WalletConnectButton";
 
 export * from "./lib/form/FormControl";
 export * from "./lib/form/Input";

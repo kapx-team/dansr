@@ -23,7 +23,9 @@ export type Link = SelectLink & {
     token?: JupagToken;
 };
 
-export type LinkBid = SelectLinkBid;
+export type LinkBid = SelectLinkBid & {
+    link?: SelectLink;
+};
 
 export type JupagToken = {
     address: string;

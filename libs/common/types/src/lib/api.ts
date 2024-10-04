@@ -56,3 +56,7 @@ export type AnswerBidApiResponse = ApiResponseType<{
     answer: string;
     linkId: string;
 }>;
+
+export type GetUserBidsApiResponse = ApiResponseType<LinkBid[]>;
+
+export type GetBidDetailsApiResponse = ApiResponseType<LinkBid>;

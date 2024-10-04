@@ -2,6 +2,7 @@ import type { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension
 import { headers } from "next/headers";
 import { apiInstance } from "./api-instance";
 import { getApiAuthService } from "./auth";
+import { getApiBidsService } from "./bids";
 import { getApiCreatorsService } from "./creators";
 import { getApiFreeQuestionsService } from "./free-questions";
 import { getApiLinksService } from "./links";
@@ -26,5 +27,6 @@ export function getServerApiClient(cookieStore: ReadonlyRequestCookies) {
         auth: getApiAuthService(serverApiInstance),
         freeQuestions: getApiFreeQuestionsService(serverApiInstance),
         creators: getApiCreatorsService(serverApiInstance),
+        bids: getApiBidsService(serverApiInstance),
     };
 }

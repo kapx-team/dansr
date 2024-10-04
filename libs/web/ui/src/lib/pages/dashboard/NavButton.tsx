@@ -14,23 +14,8 @@ export function NavButton({
 }) {
     const pathname = usePathname();
 
-    const isRouteActive = pathname === link;
-
-    const isInvoiceHistoryRoute = pathname.includes("/dashboard/history");
-
-    if (link.startsWith("/dashboard/history")) {
-        return (
-            <Link
-                href={link}
-                className={`flex cursor-pointer items-center justify-center space-x-3 rounded-lg p-2 font-karla lg:justify-start ${
-                    isInvoiceHistoryRoute ? "bg-primary-1" : ""
-                }`}
-            >
-                <span className="text-2xl lg:text-xl">{icon}</span>
-                <span className="hidden text-lg lg:block">{text}</span>
-            </Link>
-        );
-    }
+    const isRouteActive =
+        link === "/dashboard" ? pathname === link : pathname.includes(link);
 
     return (
         <Link

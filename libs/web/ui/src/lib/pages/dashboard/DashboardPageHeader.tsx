@@ -21,7 +21,7 @@ function RenderBackButton({
 }) {
     if (backLink) {
         return (
-            <Link href={backLink} className="hover:text-primary-1">
+            <Link href={backLink} className="hover:text-white/70">
                 <div className="flex items-center space-x-2">
                     <FiArrowLeft className="text-2xl" />
 
@@ -36,7 +36,7 @@ function RenderBackButton({
             <button
                 type="button"
                 onClick={backAction}
-                className="flex items-center space-x-2 hover:text-primary-1"
+                className="flex items-center space-x-2 hover:text-white/70"
             >
                 <FiArrowLeft className="text-2xl" />
 
