@@ -20,7 +20,9 @@
         "ngrok": "ngrok http --domain maximum-super-dolphin.ngrok-free.app 8080",
         "db:push": "cd libs/common/db && npx drizzle-kit push",
         "db:generate": "cd libs/common/db && npx drizzle-kit generate",
-        "email:dev": "email dev --dir ./libs/common/emails/src/lib/templates --port 5001"
+        "email:dev": "email dev --dir ./libs/common/emails/src/lib/templates --port 5001",
+        "trigger:dev": "cd libs/api/trigger && pnpm dlx trigger.dev@latest dev",
+        "trigger:deploy": "cd libs/api/trigger && pnpm dlx trigger.dev@latest deploy"
     },
     "private": true,
     "dependencies": {
