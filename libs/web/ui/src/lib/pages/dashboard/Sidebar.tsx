@@ -65,7 +65,6 @@ export function Sidebar() {
             </nav>
 
             <Button
-                className="mt-8 hidden overflow-x-hidden space-y-6 lg:block"
                 onClick={() => signoutMutation.mutate()}
                 isLoading={signoutMutation.isPending}
             >

@@ -30,7 +30,7 @@ export function Button({
     return (
         <button
             className={cn(
-                "bg-gradient-primary text-white rounded-lg font-heading text-center",
+                "bg-gradient-primary text-white rounded-lg font-heading text-center flex items-center justify-center space-x-2",
                 className,
                 isDisabled && "opacity-50 cursor-not-allowed",
                 sizeClasses[size]
@@ -41,13 +41,13 @@ export function Button({
             {isLoading ? (
                 <LoadingSpinner />
             ) : (
-                <span className="flex justify-center items-center space-x-2">
+                <>
                     {leftIcon}
 
                     <span>{children}</span>
 
                     {rightIcon}
-                </span>
+                </>
             )}
         </button>
     );
