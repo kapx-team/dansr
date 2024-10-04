@@ -11,7 +11,7 @@ import {
 import { UnifiedWalletButton, useWallet } from "@jup-ag/wallet-adapter";
 import bs58 from "bs58";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { SignoutButton } from "./SignoutButton";
 
 const toast = new ToastNotification("handle-wallet-signin-message");
@@ -25,7 +25,10 @@ export function WalletLogin() {
     const walletSigninMessageMutation = useWalletSigninMessage();
     const walletSigninRequestMutation = useWalletSigninRequest();
 
+    const [isSigningIn, setIsSigningIn] = useState(false);
+
     async function handleWalletSignin() {
+        setIsSigningIn(true);
         try {
             if (!wallet.publicKey) {
                 toast.error("Please connect your wallet!");
@@ -72,10 +75,13 @@ export function WalletLogin() {
             }
 
             toast.success("Signed in successfully!");
+
+            router.replace("/dashboard");
         } catch (error) {
             logError("handleSigninMessage =>", error);
             toast.error(extractErrorMessage(error, "Failed to sign in!"));
         }
+        setIsSigningIn(false);
     }
 
     useEffect(() => {
@@ -109,8 +115,14 @@ export function WalletLogin() {
     return (
         <div className="flex flex-col gap-4">
             <p>{wallet.publicKey?.toBase58()}</p>
-            <Button onClick={handleWalletSignin}>Signin with Wallet</Button>
-            <Button size="sm" onClick={() => wallet.disconnect()}>
+            <Button onClick={handleWalletSignin} isLoading={isSigningIn}>
+                Signin with Wallet
+            </Button>
+            <Button
+                size="sm"
+                onClick={() => wallet.disconnect()}
+                isLoading={wallet.disconnecting}
+            >
                 Disconnect
             </Button>
         </div>
