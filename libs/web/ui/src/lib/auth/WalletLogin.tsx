@@ -116,7 +116,7 @@ export function WalletLogin() {
         <div className="flex flex-col gap-4">
             <p>{wallet.publicKey?.toBase58()}</p>
             <Button onClick={handleWalletSignin} isLoading={isSigningIn}>
-                Sign in with Wallet
+                Sign In with Wallet
             </Button>
             <Button
                 size="sm"
