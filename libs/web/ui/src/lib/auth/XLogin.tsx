@@ -97,7 +97,7 @@ export function XLogin() {
             onClick={handleXLogin}
             isLoading={isPending || useXSigninCallbackMutation.isPending}
         >
-            Signin with X as Creator
+            Sign in with X as Creator
         </Button>
     );
 }
