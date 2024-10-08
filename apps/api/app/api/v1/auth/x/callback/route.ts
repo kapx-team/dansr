@@ -104,11 +104,11 @@ export async function POST(req: NextRequest) {
                 .where(eq(usersTable.xId, result.userId));
 
             if (!existingXUser) {
-                if (!oauthTokenInviteCode) {
-                    return apiResponseHandler.clientError(
-                        "Invite code is required!"
-                    );
-                }
+                // if (!oauthTokenInviteCode) {
+                //     return apiResponseHandler.clientError(
+                //         "Invite code is required!"
+                //     );
+                // }
 
                 userId = generateDbId(DB_ID_PREFIXES.USER);
 

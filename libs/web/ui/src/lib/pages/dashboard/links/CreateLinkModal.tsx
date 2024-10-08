@@ -105,7 +105,7 @@ export function CreateLinkModal({ open, onOpenChange }: CreateLinkModalProps) {
                                 htmlFor="tokenMint"
                                 className="block text-sm font-medium text-gray-700 mb-1"
                             >
-                                Token Mint
+                                Payment Token
                             </Label.Root>
                             <Controller
                                 name="tokenMint"
@@ -157,7 +157,7 @@ export function CreateLinkModal({ open, onOpenChange }: CreateLinkModalProps) {
                                 htmlFor="baseAmount"
                                 className="block text-sm font-medium text-gray-700 mb-1"
                             >
-                                Base Amount
+                                Minimum Bid Amount
                             </Label.Root>
                             <input
                                 id="baseAmount"
@@ -196,7 +196,7 @@ export function CreateLinkModal({ open, onOpenChange }: CreateLinkModalProps) {
                                 htmlFor="numberOfBids"
                                 className="block text-sm font-medium text-gray-700 mb-1"
                             >
-                                Number of Bids
+                                Number Of Winning Bids
                             </Label.Root>
                             <input
                                 id="numberOfBids"
@@ -217,7 +217,7 @@ export function CreateLinkModal({ open, onOpenChange }: CreateLinkModalProps) {
                                 htmlFor="expiration"
                                 className="block text-sm font-medium text-gray-700 mb-1"
                             >
-                                Expiration
+                                Valid For
                             </Label.Root>
                             <Controller
                                 name="expiration"
