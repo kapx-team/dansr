@@ -106,7 +106,7 @@ export function WalletLogin() {
         return (
             <UnifiedWalletButton
                 buttonClassName={cn(
-                    "bg-gradient-primary text-white rounded-lg font-heading text-center py-4 px-9"
+                    "bg-gradient-primary text-white rounded-lg font-heading text-center py-4 px-9 text-base"
                 )}
             />
         );
