@@ -79,7 +79,7 @@ function BidRow({ bid }: { bid: LinkBid }) {
             </div>
             <div>{bid.amount}</div>
             <div>{bid.status}</div>
-            <div className="truncate">{bid.message}</div>
+            <div>{bid.message}</div>
             <div>{bid.answerStatus}</div>
             <div>{formatDate(bid.createdAt, true)}</div>
             <div>
