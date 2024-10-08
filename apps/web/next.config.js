@@ -50,6 +50,12 @@ const nextConfig = {
                     "https://www.canva.com/design/DAGSVB43cAw/xE2ElNSJnRTNYAJAKQlZPg/view",
                 permanent: true,
             },
+            {
+                source: "/pitch-video",
+                destination:
+                    "https://storage.googleapis.com/dansr/assets/pitch-video.mp4",
+                permanent: true,
+            },
         ];
     },
     // This is required to support PostHog trailing slash API requests
