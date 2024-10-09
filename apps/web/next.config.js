@@ -56,6 +56,12 @@ const nextConfig = {
                     "https://storage.googleapis.com/dansr/assets/pitch-video.mp4",
                 permanent: true,
             },
+            {
+                source: "/demo",
+                destination:
+                    "https://storage.googleapis.com/dansr/assets/prototype-demo.mp4",
+                permanent: true,
+            },
         ];
     },
     // This is required to support PostHog trailing slash API requests
