@@ -1,13 +1,29 @@
 import { Button } from "@dansr/common-ui";
-import { Logo } from "@dansr/common-ui/server";
+import { Logo, PageContainer } from "@dansr/common-ui/server";
+import Link from "next/link";
 
 export function Header() {
     return (
-        <header className="flex justify-between items-center py-7 px-6">
-            <Logo />
+        <PageContainer>
+            <header className="flex justify-between items-center">
+                <Link href="/">
+                    <Logo />
+                </Link>
 
-            <Button link="/auth">Go to App</Button>
-        </header>
+                <nav>
+                    <ul className="flex gap-8">
+                        <li className="hover:text-primary-2">
+                            <Link href="#team-section">Team</Link>
+                        </li>
+                        <li className="hover:text-primary-2">
+                            <Link href="#advisor-section">Advisors</Link>
+                        </li>
+                    </ul>
+                </nav>
+
+                <Button link="/auth">Get Started</Button>
+            </header>
+        </PageContainer>
     );
 }
 

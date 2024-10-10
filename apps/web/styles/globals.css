@@ -14,20 +14,20 @@
     h3,
     h4,
     h5,
-    h6,
-    button {
+    h6 {
         @apply font-heading;
     }
 
     p,
-    a {
+    a,
+    button {
         @apply font-body;
     }
 }
 
 @layer utilities {
     .bg-gradient-primary {
-        background: linear-gradient(96.98deg, #ff304c -37.09%, #6402b9 97.97%);
+        background: linear-gradient(87.05deg, #ff304c -27.77%, #6402b9 127.47%);
     }
 
     .bg-gradient-primary-2 {

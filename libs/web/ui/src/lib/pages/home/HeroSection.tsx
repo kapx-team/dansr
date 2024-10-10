@@ -1,56 +1,62 @@
 import {
+    checklistIconImg,
     creatorAvatar1Img,
     creatorAvatar2Img,
-    questionMarkImg,
+    dansrProduct1Img,
 } from "@dansr/common-assets";
-import { Logo, PageContainer } from "@dansr/common-ui/server";
+import { Button } from "@dansr/common-ui";
+import { PageContainer } from "@dansr/common-ui/server";
 import Image from "next/image";
-import { QuestionForm } from "./QuestionForm";
 
 export function HeroSection() {
     return (
-        <PageContainer className="relative flex flex-col items-center justify-center gap-4 py-14 lg:py-24">
-            <h1 className="flex flex-col text-center lg:text-[66px] gap-2 lg:gap-8 text-3xl font-bold mb-4 lg:mb-8">
-                <span>Got a question for someone famous?</span>
-                <span className="flex items-center justify-center gap-3">
-                    Get your
-                    <span className="-mt-2">
-                        <Logo className="lg:w-40 w-20" />
-                    </span>
-                </span>
-            </h1>
-
-            <p className="text-center max-w-[670px] mb-8 lg:mb-16 text-sm md:text-base font-medium">
-                If you could ask a question to absolutely anyone on X and could
-                be guaranteed a response that would appear on your feed, what
-                would that question be — and to whom? Tell us below, and we may
-                just get you a{" "}
-                <span className="font-bold">
-                    <span className="text-red-500">d</span>irect{" "}
-                    <span className="text-red-500">answer</span>
-                </span>
-                !
-            </p>
-
-            <Image
-                src={questionMarkImg}
-                alt="question-mark"
-                className="absolute top-72 right-4 hidden xl:block"
-            />
-
+        <section id="hero-section" className="relative pt-14">
             <Image
                 src={creatorAvatar1Img}
                 alt="creator-avatar-1"
-                className="absolute top-[640px] left-0 hidden xl:block"
+                className="absolute top-[560px] left-[140px] hidden xl:block"
             />
 
             <Image
                 src={creatorAvatar2Img}
                 alt="creator-avatar-2"
-                className="absolute top-[430px] right-0 hidden xl:block"
+                className="absolute h-[200px] w-[200px] -top-4 left-[460px] transform -rotate-[18] hidden xl:block"
             />
 
-            <QuestionForm />
-        </PageContainer>
+            <PageContainer className="flex justify-center flex-col-reverse lg:flex-row lg:justify-between items-center gap-4">
+                <div className="items-center text-center lg:text-left space-y-6 flex-1 flex flex-col justify-center lg:items-start">
+                    <h1 className="lg:text-[68px] leading-[81px] text-3xl">
+                        Guaranteed onchain interactions{" "}
+                        <span className="inline-block">
+                            <Image
+                                src={checklistIconImg}
+                                alt="checklist-icon"
+                                className="transform translate-y-3"
+                            />
+                        </span>
+                    </h1>
+
+                    <p className="max-w-[670px] text-sm md:text-base font-medium pb-3">
+                        Bid for attention from X's top voices, ensuring
+                        guaranteed interactions - where fans and creators
+                        connect for a{" "}
+                        <span className="font-bold font-heading">
+                            <span className="text-red-500">d</span>irect{" "}
+                            <span className="text-red-500">answer</span>
+                        </span>
+                        !
+                    </p>
+
+                    <Button link="/auth">Get Started</Button>
+                </div>
+
+                <div className="space-y-4">
+                    <p className="text-center text-3xl font-heading">
+                        Insights into Your Success
+                    </p>
+                    <Image src={dansrProduct1Img} alt="dansr-product-1" />
+                </div>
+            </PageContainer>
+        </section>
     );
 }
