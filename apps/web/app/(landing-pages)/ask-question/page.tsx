@@ -1,6 +1,7 @@
-import { Footer, Header, HeroSection } from "@dansr/web-ui/server";
+import { CreatorsSection } from "@dansr/web-ui";
+import { AskQuestionHeroSection, Footer } from "@dansr/web-ui/server";
 
-export default function HomePage() {
+export default function AskQuestionPage() {
     return (
         <div
             className="w-full"
@@ -8,13 +9,12 @@ export default function HomePage() {
                 backgroundImage: `url(/images/landing-background.jpeg)`,
                 backgroundSize: "cover",
                 backgroundPosition: "top",
-                backgroundPositionY: "-160px",
                 backgroundRepeat: "no-repeat",
             }}
         >
-            <Header />
+            <AskQuestionHeroSection />
 
-            <HeroSection />
+            <CreatorsSection />
 
             <Footer />
         </div>

@@ -1,13 +1,15 @@
 import { Button } from "@dansr/common-ui";
-import { Logo } from "@dansr/common-ui/server";
+import { Logo, PageContainer } from "@dansr/common-ui/server";
 
 export function Header() {
     return (
-        <header className="flex justify-between items-center py-7 px-6">
-            <Logo />
+        <PageContainer>
+            <header className="flex justify-between items-center">
+                <Logo />
 
-            <Button link="/auth">Go to App</Button>
-        </header>
+                <Button link="/auth">Get Started</Button>
+            </header>
+        </PageContainer>
     );
 }
 

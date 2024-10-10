@@ -25,6 +25,10 @@
         "JUPAG",
         "usrq",
         "verq",
+        "vikhyat",
         "vreq"
+    ],
+    "tailwindCSS.experimental.classRegex": [
+        ["([\"'`][^\"'`]*.*?[\"'`])", "[\"'`]([^\"'`]*).*?[\"'`]"]
     ]
 }
