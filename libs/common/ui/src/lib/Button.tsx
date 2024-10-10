@@ -24,8 +24,8 @@ const buttonTv = tv({
             outline: "",
         },
         color: {
-            primary: "hover:bg-primary-2/80",
-            secondary: "hover:bg-primary-1/80",
+            primary: "",
+            secondary: "",
         },
         size: {
             sm: "text-sm",
@@ -33,7 +33,7 @@ const buttonTv = tv({
             lg: "text-base p-4",
         },
         disabled: {
-            true: "opacity-50 cursor-not-allowed",
+            true: "opacity-50 hover:opacity-50 cursor-not-allowed",
         },
     },
     compoundVariants: [
