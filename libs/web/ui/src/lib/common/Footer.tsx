@@ -22,17 +22,11 @@ export function Footer({ className, ...props }: FooterProps) {
 
                     <nav>
                         <ul className="flex space-x-6">
-                            <li>
-                                <Link href="/product">Product</Link>
+                            <li className="hover:text-primary-2">
+                                <Link href="#team-section">Team</Link>
                             </li>
-                            <li>
-                                <Link href="/journey">Journey</Link>
-                            </li>
-                            <li>
-                                <Link href="/team">Team</Link>
-                            </li>
-                            <li>
-                                <Link href="/spotlight">Spotlight</Link>
+                            <li className="hover:text-primary-2">
+                                <Link href="#advisor-section">Advisors</Link>
                             </li>
                         </ul>
                     </nav>
