@@ -1,8 +1,11 @@
+import { CreatorsSection } from "@dansr/web-ui";
 import {
+    AdvisorSection,
     Footer,
     Header,
     HeroSection,
     RadarSection,
+    TeamSection,
 } from "@dansr/web-ui/server";
 
 export default function HomePage() {
@@ -10,10 +13,10 @@ export default function HomePage() {
         <div
             className="w-full"
             style={{
-                backgroundImage: `url(/images/landing-background.jpeg)`,
+                backgroundImage: `url(/images/landing-background.jpg)`,
                 backgroundSize: "cover",
                 backgroundPosition: "top",
-                backgroundPositionY: "-160px",
+                backgroundPositionY: "-280px",
                 backgroundRepeat: "no-repeat",
             }}
         >
@@ -21,7 +24,13 @@ export default function HomePage() {
 
             <HeroSection />
 
-            <RadarSection className="py-72" />
+            <RadarSection className="pt-96" />
+
+            <TeamSection className="pt-44" />
+
+            <AdvisorSection className="pt-28" />
+
+            <CreatorsSection className="pt-20 pb-10" />
 
             <Footer />
         </div>

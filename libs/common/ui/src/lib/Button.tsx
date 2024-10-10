@@ -12,29 +12,41 @@ export type ButtonProps = React.ComponentProps<"button"> & {
     size?: "sm" | "md" | "lg";
     link?: string;
     color?: "primary" | "secondary";
-    style?: "solid" | "outline";
+    variant?: "solid" | "outline";
 };
 
 const buttonTv = tv({
-    base: "text-center min-w-[170px] font-bold font-body text-white px-4 py-2",
+    base: "text-center min-w-[170px] font-bold font-body text-white px-4 py-2 rounded-full",
     variants: {
-        style: {
-            solid: "rounded-full",
+        variant: {
+            solid: "",
             outline: "",
         },
         color: {
-            primary: "bg-primary-2 hover:bg-primary-2/80",
-            secondary: "bg-primary-1 hover:bg-primary-1/80",
+            primary: "hover:bg-primary-2/80",
+            secondary: "hover:bg-primary-1/80",
         },
         size: {
             sm: "text-sm",
             md: "text-sm",
-            lg: "text-base",
+            lg: "text-base p-4",
         },
         disabled: {
             true: "opacity-50 cursor-not-allowed",
         },
     },
+    compoundVariants: [
+        {
+            variant: "solid",
+            color: "primary",
+            class: "bg-primary-2 hover:bg-primary-2/80",
+        },
+        {
+            variant: "outline",
+            color: "primary",
+            class: "border border-primary-2 hover:bg-primary-2/80 text-primary-2 hover:text-white",
+        },
+    ],
     defaultVariants: {
         size: "md",
         color: "primary",
@@ -51,7 +63,7 @@ export function Button({
     isDisabled,
     color = "primary",
     size = "md",
-    style = "solid",
+    variant = "solid",
     link,
     ...props
 }: ButtonProps) {
@@ -59,7 +71,8 @@ export function Button({
         color,
         size,
         disabled: isDisabled,
-        style,
+        variant,
+        className,
     });
 
     if (link) {
@@ -78,7 +91,7 @@ export function Button({
                 <>
                     {leftIcon}
 
-                    <span>{children}</span>
+                    {children}
 
                     {rightIcon}
                 </>
