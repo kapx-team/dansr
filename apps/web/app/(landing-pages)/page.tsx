@@ -1,4 +1,9 @@
-import { Footer, Header, HeroSection } from "@dansr/web-ui/server";
+import {
+    Footer,
+    Header,
+    HeroSection,
+    RadarSection,
+} from "@dansr/web-ui/server";
 
 export default function HomePage() {
     return (
@@ -15,6 +20,8 @@ export default function HomePage() {
             <Header />
 
             <HeroSection />
+
+            <RadarSection className="py-72" />
 
             <Footer />
         </div>
