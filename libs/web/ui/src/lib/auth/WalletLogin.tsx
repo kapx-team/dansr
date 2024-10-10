@@ -2,7 +2,7 @@
 
 import { USER_TYPES } from "@dansr/common-constants";
 import { Button, ToastNotification } from "@dansr/common-ui";
-import { cn, extractErrorMessage, logError } from "@dansr/common-utils";
+import { extractErrorMessage, logError } from "@dansr/common-utils";
 import {
     useAuthenticatedUser,
     useWalletSigninMessage,
@@ -105,9 +105,10 @@ export function WalletLogin() {
     if (!wallet.connected) {
         return (
             <UnifiedWalletButton
-                buttonClassName={cn(
-                    "bg-gradient-primary text-white rounded-lg font-heading text-center py-4 px-9 text-base"
-                )}
+                buttonClassName="bg-transparent"
+                overrideContent={
+                    <Button className="w-full">Connect Wallet</Button>
+                }
             />
         );
     }

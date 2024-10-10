@@ -25,7 +25,7 @@ export function AdvisorSection({ className, ...props }: AdvisorSectionProps) {
                     <AdvisorCard
                         name="Beeman"
                         descriptionLines={[
-                            <p>
+                            <p key="line-1">
                                 Founder of Pubkey & Tokengater, Deanlist Citizen
                             </p>,
                         ]}
@@ -35,11 +35,11 @@ export function AdvisorSection({ className, ...props }: AdvisorSectionProps) {
                     <AdvisorCard
                         name="Sid kapur"
                         descriptionLines={[
-                            <p>
+                            <p key="line-1">
                                 Serial entrepreneur and venture studio owner
                                 (KAPX)
                             </p>,
-                            <p>Founder of Gloo and MoneySmart</p>,
+                            <p key="line-2">Founder of Gloo and MoneySmart</p>,
                         ]}
                         imageSrc={dansrSidImg}
                     />

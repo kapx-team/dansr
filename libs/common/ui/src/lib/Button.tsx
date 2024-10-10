@@ -83,10 +83,18 @@ export function Button({
         );
     }
 
+    const loadingSpinnerSize = {
+        sm: 16,
+        md: 20,
+        lg: 24,
+    };
+
     return (
         <button className={buttonClassName} disabled={isDisabled} {...props}>
             {isLoading ? (
-                <LoadingSpinner />
+                <span className="flex items-center justify-center">
+                    <LoadingSpinner size={loadingSpinnerSize[size]} />
+                </span>
             ) : (
                 <>
                     {leftIcon}

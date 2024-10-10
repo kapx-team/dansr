@@ -24,26 +24,26 @@ export function TeamSection({ className, ...props }: TeamSectionProps) {
                         name="Bhagya Mudgal"
                         position="Tech Lead"
                         descriptionLines={[
-                            <p>
+                            <p key="line-1">
                                 Former Roles at{" "}
                                 <span className="font-bold">Gloo</span>,{" "}
                                 <span className="font-bold">IOTric</span>,{" "}
                                 <span className="font-bold">Solvent</span>, and{" "}
                                 <span className="font-bold">Platos</span>
                             </p>,
-                            <p>
+                            <p key="line-2">
                                 Active{" "}
                                 <span className="font-bold">Superteam</span>{" "}
                                 Member
                             </p>,
-                            <p>
+                            <p key="line-3">
                                 <span className="font-bold">Deanslist</span>{" "}
                                 Citizen
                             </p>,
-                            <p>
+                            <p key="line-4">
                                 Full-stack developer with 3+ years of experience
                             </p>,
-                            <p>
+                            <p key="line-5">
                                 Solana specialist with 2+ years in blockchain
                                 development
                             </p>,
@@ -55,24 +55,24 @@ export function TeamSection({ className, ...props }: TeamSectionProps) {
                         name="Vikhyat Sapra"
                         position="Growth Strategist"
                         descriptionLines={[
-                            <p>
+                            <p key="line-1">
                                 Former Roles at{" "}
                                 <span className="font-bold">Gloo</span>,{" "}
                                 <span className="font-bold">Crowwd Labs</span>,
                                 and{" "}
                                 <span className="font-bold"> Ultrahuman</span>
                             </p>,
-                            <p>
+                            <p key="line-2">
                                 <span className="font-bold">
                                     Network School
                                 </span>{" "}
                                 V1 Admit
                             </p>,
-                            <p>
+                            <p key="line-3">
                                 <span className="font-bold">Superteam</span>{" "}
                                 Contributor
                             </p>,
-                            <p>
+                            <p key="line-4">
                                 4 years of on-chain agency experience in growth
                                 and community
                             </p>,
