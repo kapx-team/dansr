@@ -23,8 +23,8 @@ export function HeroSection() {
                 className="absolute h-[200px] w-[200px] -top-4 left-[460px] transform -rotate-[18] hidden xl:block"
             />
 
-            <PageContainer className="flex justify-between items-center gap-4">
-                <div className="text-left space-y-6 flex-1 flex flex-col justify-center items-start">
+            <PageContainer className="flex justify-center flex-col-reverse lg:flex-row lg:justify-between items-center gap-4">
+                <div className="items-center text-center lg:text-left space-y-6 flex-1 flex flex-col justify-center lg:items-start">
                     <h1 className="lg:text-[68px] leading-[81px] text-3xl">
                         Guaranteed onchain interactions{" "}
                         <span className="inline-block">

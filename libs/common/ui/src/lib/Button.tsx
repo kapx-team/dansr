@@ -13,6 +13,7 @@ export type ButtonProps = React.ComponentProps<"button"> & {
     link?: string;
     color?: "primary" | "secondary";
     variant?: "solid" | "outline";
+    openLinkInNewTab?: boolean;
 };
 
 const buttonTv = tv({
@@ -65,6 +66,7 @@ export function Button({
     size = "md",
     variant = "solid",
     link,
+    openLinkInNewTab,
     ...props
 }: ButtonProps) {
     const buttonClassName = buttonTv({
@@ -77,7 +79,12 @@ export function Button({
 
     if (link) {
         return (
-            <Link href={link} className={buttonClassName}>
+            <Link
+                href={link}
+                className={buttonClassName}
+                target={openLinkInNewTab ? "_blank" : undefined}
+                rel={openLinkInNewTab ? "noopener noreferrer" : undefined}
+            >
                 {children}
             </Link>
         );

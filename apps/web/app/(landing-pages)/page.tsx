@@ -24,13 +24,13 @@ export default function HomePage() {
 
             <HeroSection />
 
-            <RadarSection className="pt-96" />
+            <RadarSection className="mt-96" />
 
-            <TeamSection className="pt-44" />
+            <TeamSection className="mt-44" />
 
-            <AdvisorSection className="pt-28" />
+            <AdvisorSection className="mt-28" />
 
-            <CreatorsSection className="pt-20 pb-10" />
+            <CreatorsSection className="mt-20 mb-10" />
 
             <Footer />
         </div>

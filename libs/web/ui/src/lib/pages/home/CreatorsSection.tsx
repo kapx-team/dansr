@@ -37,6 +37,8 @@ export function CreatorsSection({ className, ...props }: CreatorsSectionProps) {
                 <Button
                     variant="outline"
                     className="flex items-center justify-center gap-2"
+                    link="https://x.com/askdansr"
+                    openLinkInNewTab
                 >
                     <span>Follow Us On</span>
 
