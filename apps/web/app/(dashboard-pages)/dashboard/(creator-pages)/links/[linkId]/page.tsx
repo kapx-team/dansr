@@ -3,7 +3,6 @@ import { BidsTable, LinkDetails } from "@dansr/web-ui";
 import { DashboardPageHeader } from "@dansr/web-ui/server";
 import { getServerApiClient } from "@dansr/web-utils/server";
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 
 export const dynamic = "force-dynamic";
 
@@ -17,12 +16,6 @@ export default async function DashboardLinkDetailsPage({
     const cookieStore = cookies();
 
     const apiClient = getServerApiClient(cookieStore);
-
-    const user = await apiClient.auth.getAuthenticatedUser();
-
-    if (!user) {
-        redirect("/auth");
-    }
 
     const { linkId } = params;
 

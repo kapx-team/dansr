@@ -1,5 +1,5 @@
 import { Logo } from "@dansr/common-ui/server";
-import { Sidebar } from "@dansr/web-ui";
+import { ProtectedRoute, Sidebar } from "@dansr/web-ui";
 import { DashboardPageContainer } from "@dansr/web-ui/server";
 import type { Metadata } from "next";
 
@@ -8,13 +8,13 @@ export const metadata = {
     description: "",
 } satisfies Metadata;
 
-export default function DashboardLayout({
+export default async function DashboardLayout({
     children,
 }: {
     children: React.ReactNode;
 }) {
     return (
-        <>
+        <ProtectedRoute>
             <div className="hidden h-full overflow-x-hidden lg:block">
                 <Sidebar />
 
@@ -27,6 +27,6 @@ export default function DashboardLayout({
                     Please use tablet or desktop device to use the app!
                 </h1>
             </div>
-        </>
+        </ProtectedRoute>
     );
 }

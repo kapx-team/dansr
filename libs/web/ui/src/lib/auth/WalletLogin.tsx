@@ -10,15 +10,13 @@ import {
 } from "@dansr/web-hooks";
 import { UnifiedWalletButton, useWallet } from "@jup-ag/wallet-adapter";
 import bs58 from "bs58";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { SignoutButton } from "./SignoutButton";
 
 const toast = new ToastNotification("handle-wallet-signin-message");
 
 export function WalletLogin() {
-    const router = useRouter();
-    const { data, isPending } = useAuthenticatedUser();
+    const { data, isLoading, refetch } = useAuthenticatedUser();
 
     const wallet = useWallet();
 
@@ -75,8 +73,7 @@ export function WalletLogin() {
             }
 
             toast.success("Signed in successfully!");
-
-            router.replace("/dashboard");
+            refetch();
         } catch (error) {
             logError("handleSigninMessage =>", error);
             toast.error(extractErrorMessage(error, "Failed to sign in!"));
@@ -84,13 +81,7 @@ export function WalletLogin() {
         setIsSigningIn(false);
     }
 
-    useEffect(() => {
-        if (data) {
-            router.replace("/dashboard");
-        }
-    }, [data]); //eslint-disable-line
-
-    if (isPending) {
+    if (isLoading) {
         return null;
     }
 

@@ -63,9 +63,9 @@ export async function POST(req: NextRequest) {
             return apiResponseHandler.clientError(bodyValidationResult.error);
         }
 
-        const { inviteCode } = bodyValidationResult.body;
+        const { inviteCode, redirectUrl } = bodyValidationResult.body;
 
-        const callbackUrl = `${apiEnv.FRONTEND_URL}/auth`;
+        const callbackUrl = `${apiEnv.FRONTEND_URL}/auth?r=${redirectUrl ?? "/dashboard"}`;
 
         console.log("callbackUrl =>", callbackUrl);
 

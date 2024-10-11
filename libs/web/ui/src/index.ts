@@ -1,4 +1,4 @@
-export * from "./lib/auth/ClientProtectedRoute";
+export * from "./lib/auth/ProtectedRoute";
 
 export * from "./lib/auth/SignoutButton";
 export * from "./lib/auth/WalletLogin";

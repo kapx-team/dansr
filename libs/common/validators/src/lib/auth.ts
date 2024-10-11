@@ -63,4 +63,10 @@ export const xSigninSchema = z.object({
             invalid_type_error: "Invalid invite code!",
         })
         .optional(),
+    redirectUrl: z
+        .string({
+            required_error: "Redirect URL is required!",
+            invalid_type_error: "Invalid redirect URL!",
+        })
+        .optional(),
 });

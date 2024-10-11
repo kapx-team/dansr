@@ -21,7 +21,7 @@ export function Header() {
                     </ul>
                 </nav>
 
-                <Button link="/auth">Get Started</Button>
+                <Button link="/dashboard">Get Started</Button>
             </header>
         </PageContainer>
     );

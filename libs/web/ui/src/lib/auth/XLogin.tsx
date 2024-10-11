@@ -16,18 +16,20 @@ export function XLogin() {
     const router = useRouter();
     const { mutateAsync, isPending } = useGetXSigninUrl();
     const useXSigninCallbackMutation = useXSigninCallback();
-    const { data, isLoading } = useAuthenticatedUser();
+    const { data, isLoading, refetch } = useAuthenticatedUser();
     const searchParams = useSearchParams();
 
     const oauthToken = searchParams.get("oauth_token");
     const oauthVerifier = searchParams.get("oauth_verifier");
-    const inviteCode = searchParams.get("invite_code");
+    const inviteCode = searchParams.get("invite_code") || undefined;
 
     const callbackExecutedRef = useRef(false);
 
+    const redirectUrl = searchParams.get("r") || undefined;
+
     async function handleXLogin() {
         try {
-            const response = await mutateAsync(inviteCode || undefined);
+            const response = await mutateAsync({ inviteCode, redirectUrl });
 
             if (!response.success) {
                 throw new Error(response.message);
@@ -64,7 +66,7 @@ export function XLogin() {
                     if (!response.success) {
                         router.replace("/auth/x-auth-error");
                     } else {
-                        router.replace("/dashboard");
+                        refetch();
                     }
                 })
                 .catch((error) => {
@@ -72,13 +74,7 @@ export function XLogin() {
                     router.replace("/auth/x-auth-error");
                 });
         }
-    }, [oauthToken, oauthVerifier, useXSigninCallbackMutation, router]);
-
-    useEffect(() => {
-        if (data) {
-            router.replace("/dashboard");
-        }
-    }, [data]); //eslint-disable-line
+    }, [oauthToken, oauthVerifier, useXSigninCallbackMutation, router]); //eslint-disable-line
 
     if (isLoading) {
         return null;

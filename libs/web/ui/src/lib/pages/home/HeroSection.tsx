@@ -47,7 +47,7 @@ export function HeroSection() {
                         !
                     </p>
 
-                    <Button link="/auth">Get Started</Button>
+                    <Button link="/dashboard">Get Started</Button>
                 </div>
 
                 <div className="space-y-4">

@@ -26,9 +26,9 @@ export function getApiAuthService(apiInstance: KyInstance) {
         return response.result;
     }
 
-    async function getXSigninUrl(inviteCode?: string) {
+    async function getXSigninUrl(inviteCode?: string, redirectUrl?: string) {
         const response = await apiInstance
-            .post("auth/x/signin", { json: { inviteCode } })
+            .post("auth/x/signin", { json: { inviteCode, redirectUrl } })
             .json<GetXSigninUrlApiResponse>();
 
         return response;
