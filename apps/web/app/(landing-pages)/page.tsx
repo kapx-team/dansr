@@ -16,7 +16,6 @@ export default function HomePage() {
                 backgroundImage: `url(/images/landing-background.jpg)`,
                 backgroundSize: "cover",
                 backgroundPosition: "top",
-                backgroundPositionY: "-280px",
                 backgroundRepeat: "no-repeat",
             }}
         >
@@ -24,13 +23,13 @@ export default function HomePage() {
 
             <HeroSection />
 
-            <RadarSection className="mt-96" />
+            <RadarSection className="mt-80" />
 
             <TeamSection className="mt-44" />
 
             <AdvisorSection className="mt-28" />
 
-            <CreatorsSection className="mt-20 mb-10" />
+            <CreatorsSection className="mt-28 mb-10" />
 
             <Footer />
         </div>
