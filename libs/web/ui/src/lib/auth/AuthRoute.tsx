@@ -10,9 +10,9 @@ type AuthRouteProps = React.ComponentProps<"div">;
 export function AuthRoute({ children }: AuthRouteProps) {
     const router = useRouter();
     const searchParams = useSearchParams();
-    const { data, isLoading } = useAuthenticatedUser();
+    const { data, isLoading, isError } = useAuthenticatedUser();
 
-    const isAuthenticated = data?.id;
+    const isAuthenticated = data?.id && !isError;
 
     const redirect = searchParams.get("r");
 

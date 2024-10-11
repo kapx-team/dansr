@@ -11,9 +11,9 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
     const router = useRouter();
     const pathname = usePathname();
     const searchParams = useSearchParams();
-    const { data, isLoading } = useAuthenticatedUser();
+    const { data, isLoading, isError } = useAuthenticatedUser();
 
-    const isAuthenticated = data?.id;
+    const isAuthenticated = data?.id && !isError;
 
     const redirect = searchParams.get("r");
 
