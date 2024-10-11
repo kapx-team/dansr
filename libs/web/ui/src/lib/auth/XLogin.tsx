@@ -1,6 +1,5 @@
 "use client";
 
-import { USER_TYPES } from "@dansr/common-constants";
 import { Button } from "@dansr/common-ui";
 import { logError } from "@dansr/common-utils";
 import {
@@ -10,7 +9,6 @@ import {
 } from "@dansr/web-hooks";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef } from "react";
-import { SignoutButton } from "./SignoutButton";
 
 export function XLogin() {
     const router = useRouter();
@@ -81,11 +79,7 @@ export function XLogin() {
     }
 
     if (data) {
-        if (data.type !== USER_TYPES.CREATOR) {
-            return null;
-        }
-
-        return <SignoutButton />;
+        return null;
     }
 
     return (

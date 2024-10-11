@@ -1,15 +1,14 @@
 "use client";
 
 import { useAuthenticatedUser } from "@dansr/web-hooks";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { PageLoading } from "../common/PageLoading";
 
-type ProtectedRouteProps = React.ComponentProps<"div">;
+type AuthRouteProps = React.ComponentProps<"div">;
 
-export function ProtectedRoute({ children }: ProtectedRouteProps) {
+export function AuthRoute({ children }: AuthRouteProps) {
     const router = useRouter();
-    const pathname = usePathname();
     const searchParams = useSearchParams();
     const { data, isLoading } = useAuthenticatedUser();
 
@@ -18,12 +17,12 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
     const redirect = searchParams.get("r");
 
     useEffect(() => {
-        if (!isAuthenticated && !isLoading) {
-            router.replace(`/auth?r=${pathname}`);
+        if (isAuthenticated && !isLoading) {
+            router.replace(redirect ?? "/dashboard");
         }
-    }, [isAuthenticated, redirect, pathname, isLoading]); // eslint-disable-line
+    }, [isAuthenticated, redirect, isLoading]); // eslint-disable-line
 
-    if (isAuthenticated) {
+    if (!isAuthenticated) {
         return children;
     }
 

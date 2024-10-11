@@ -1,6 +1,5 @@
 "use client";
 
-import { USER_TYPES } from "@dansr/common-constants";
 import { Button, ToastNotification } from "@dansr/common-ui";
 import { extractErrorMessage, logError } from "@dansr/common-utils";
 import {
@@ -11,7 +10,6 @@ import {
 import { UnifiedWalletButton, useWallet } from "@jup-ag/wallet-adapter";
 import bs58 from "bs58";
 import { useState } from "react";
-import { SignoutButton } from "./SignoutButton";
 
 const toast = new ToastNotification("handle-wallet-signin-message");
 
@@ -86,11 +84,7 @@ export function WalletLogin() {
     }
 
     if (data) {
-        if (data.type === USER_TYPES.CREATOR) {
-            return null;
-        } else {
-            return <SignoutButton />;
-        }
+        return null;
     }
 
     if (!wallet.connected) {
