@@ -3,6 +3,10 @@ import { AuthRoute, PageLoading, WalletLogin, XLogin } from "@dansr/web-ui";
 import Link from "next/link";
 import { Suspense } from "react";
 
+export const metadata = {
+    title: "Auth | dansr",
+};
+
 export default function AuthPage() {
     return (
         <Suspense fallback={<PageLoading />}>

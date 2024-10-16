@@ -1,6 +1,10 @@
 import { DashboardPageHeader } from "@dansr/web-ui/server";
 import { getCurrentHourName } from "@dansr/web-utils";
 
+export const metadata = {
+    title: "Dashboard | dansr",
+};
+
 export default function DashboardPage() {
     const currentHourName = getCurrentHourName();
 

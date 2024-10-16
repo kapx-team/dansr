@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 
 export const metadata = {
-    title: "Dashboard | Dansr",
+    title: "Dashboard | dansr",
     description: "",
 } satisfies Metadata;
 

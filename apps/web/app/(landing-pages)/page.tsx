@@ -7,6 +7,10 @@ import {
     TeamSection,
 } from "@dansr/web-ui/server";
 
+export const metadata = {
+    title: "Home | dansr",
+};
+
 export default function HomePage() {
     return (
         <div

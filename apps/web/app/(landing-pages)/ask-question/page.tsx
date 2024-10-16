@@ -1,6 +1,10 @@
 import { CreatorsSection, Header } from "@dansr/web-ui";
 import { AskQuestionHeroSection, Footer } from "@dansr/web-ui/server";
 
+export const metadata = {
+    title: "Ask a Question | dansr",
+};
+
 export default function AskQuestionPage() {
     return (
         <div

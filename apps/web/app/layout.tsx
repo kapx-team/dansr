@@ -16,7 +16,7 @@ const ibrand = localFont({
     variable: "--font-ibrand",
 });
 export const metadata = {
-    title: "Dansr",
+    title: "dansr",
     description: "",
     icons: {
         icon: "/favicon.ico",
