@@ -1,4 +1,4 @@
-import { CreatorsSection } from "@dansr/web-ui";
+import { CreatorsSection, Header } from "@dansr/web-ui";
 import { AskQuestionHeroSection, Footer } from "@dansr/web-ui/server";
 
 export default function AskQuestionPage() {
@@ -12,9 +12,11 @@ export default function AskQuestionPage() {
                 backgroundRepeat: "no-repeat",
             }}
         >
+            <Header />
+
             <AskQuestionHeroSection />
 
-            <CreatorsSection />
+            <CreatorsSection className="pb-10" />
 
             <Footer />
         </div>

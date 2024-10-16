@@ -5,11 +5,16 @@ import { Button } from "@dansr/common-ui";
 import { PageContainer } from "@dansr/common-ui/server";
 import { cn } from "@dansr/common-utils";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
 
 type CreatorsSectionProps = React.ComponentProps<"section">;
 
 export function CreatorsSection({ className, ...props }: CreatorsSectionProps) {
+    const pathname = usePathname();
+
+    const isAskQuestionPage = pathname.includes("ask-question");
+
     const scrollRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -73,7 +78,9 @@ export function CreatorsSection({ className, ...props }: CreatorsSectionProps) {
                     </span>
                 </Button>
 
-                <Button>Ask a Question</Button>
+                {!isAskQuestionPage && (
+                    <Button link="/ask-question">Ask a Question</Button>
+                )}
             </PageContainer>
         </section>
     );

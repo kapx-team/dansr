@@ -4,6 +4,17 @@ import Link from "next/link";
 
 type FooterProps = React.ComponentProps<"footer">;
 
+const NAV_LINKS = [
+    {
+        href: "/#team-section",
+        label: "Team",
+    },
+    {
+        href: "/#advisor-section",
+        label: "Advisors",
+    },
+];
+
 export function Footer({ className, ...props }: FooterProps) {
     return (
         <footer
@@ -22,12 +33,18 @@ export function Footer({ className, ...props }: FooterProps) {
 
                     <nav>
                         <ul className="flex flex-col md:flex-row gap-3 md:gap-6">
-                            <li className="hover:text-primary-2">
-                                <Link href="#team-section">Team</Link>
-                            </li>
-                            <li className="hover:text-primary-2">
-                                <Link href="#advisor-section">Advisors</Link>
-                            </li>
+                            {NAV_LINKS.map((link) => {
+                                return (
+                                    <li
+                                        key={link.label}
+                                        className="hover:text-primary-2"
+                                    >
+                                        <Link href={link.href}>
+                                            {link.label}
+                                        </Link>
+                                    </li>
+                                );
+                            })}
                         </ul>
                     </nav>
                 </div>

@@ -83,8 +83,12 @@ export function TeamSection({ className, ...props }: TeamSectionProps) {
                     />
                 </div>
 
-                <div className="space-y-4 pt-10">
-                    <Button variant="outline" size="lg">
+                <div className="pt-10 flex flex-col items-center gap-4">
+                    <Button
+                        variant="outline"
+                        size="lg"
+                        link="mailto:team@dansr.io"
+                    >
                         Be Part of Our Vision
                     </Button>
 

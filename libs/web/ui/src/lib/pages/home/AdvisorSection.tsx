@@ -45,8 +45,12 @@ export function AdvisorSection({ className, ...props }: AdvisorSectionProps) {
                     />
                 </div>
 
-                <div className="space-y-4 pt-10">
-                    <Button variant="outline" size="lg">
+                <div className="pt-10 flex flex-col items-center gap-4">
+                    <Button
+                        variant="outline"
+                        size="lg"
+                        link="mailto:team@dansr.io"
+                    >
                         Become an Advisor
                     </Button>
 

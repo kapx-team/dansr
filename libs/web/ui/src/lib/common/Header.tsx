@@ -10,11 +10,11 @@ import { useBoolean } from "usehooks-ts";
 
 const NAV_LINKS = [
     {
-        href: "#team-section",
+        href: "/#team-section",
         label: "Team",
     },
     {
-        href: "#advisor-section",
+        href: "/#advisor-section",
         label: "Advisors",
     },
 ];
