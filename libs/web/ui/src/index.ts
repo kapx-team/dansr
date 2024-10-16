@@ -1,3 +1,4 @@
+export * from "./lib/common/Header";
 export * from "./lib/common/PageLoading";
 
 export * from "./lib/auth/AuthRoute";

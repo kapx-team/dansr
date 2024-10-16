@@ -14,14 +14,14 @@ export function Footer({ className, ...props }: FooterProps) {
             {...props}
         >
             <PageContainer className="flex flex-col gap-8">
-                <div className="flex justify-between items-start">
-                    <div className="space-y-3">
+                <div className="flex flex-col md:flex-row justify-between text-center md:text-left md:items-start items-center gap-6">
+                    <div className="space-y-3 flex flex-col items-center md:items-start">
                         <Logo className="w-[180px]" />
                         <p>Guaranteed attention, verified responses.</p>
                     </div>
 
                     <nav>
-                        <ul className="flex space-x-6">
+                        <ul className="flex flex-col md:flex-row gap-3 md:gap-6">
                             <li className="hover:text-primary-2">
                                 <Link href="#team-section">Team</Link>
                             </li>

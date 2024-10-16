@@ -14,8 +14,10 @@ import {
     default as logoImg,
     default as logoMobileImg,
 } from "./lib/images/dansr-logo.svg";
-import dansrCreatorsLongImg from "./lib/images/dansr-mystery-famous-people-long.png";
-import creatorsSectionImg from "./lib/images/dansr-mystery-famous-people.png";
+import {
+    default as creatorsSectionImg,
+    default as dansrCreatorsLongImg,
+} from "./lib/images/dansr-mystery-famous-people-long.png";
 import dansrProduct1Img from "./lib/images/dansr-product-1.png";
 import dansrProduct2Img from "./lib/images/dansr-product-2.png";
 import dansrProduct3Img from "./lib/images/dansr-product-3.png";

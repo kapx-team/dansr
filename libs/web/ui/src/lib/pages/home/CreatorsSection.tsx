@@ -5,18 +5,36 @@ import { Button } from "@dansr/common-ui";
 import { PageContainer } from "@dansr/common-ui/server";
 import { cn } from "@dansr/common-utils";
 import Image from "next/image";
+import { useEffect, useRef } from "react";
 
 type CreatorsSectionProps = React.ComponentProps<"section">;
 
 export function CreatorsSection({ className, ...props }: CreatorsSectionProps) {
+    const scrollRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const scrollContainer = scrollRef.current;
+        if (!scrollContainer) return;
+
+        const scrollWidth = scrollContainer.scrollWidth;
+        const clientWidth = scrollContainer.clientWidth;
+
+        if (scrollWidth > clientWidth) {
+            scrollContainer.style.setProperty(
+                "--scroll-width",
+                `${scrollWidth}px`
+            );
+        }
+    }, []);
+
     return (
         <section
             id="creators-section"
             className={cn("space-y-20", className)}
             {...props}
         >
-            <PageContainer className="flex flex-col items-center justify-center gap-4">
-                <h2 className="text-[66px] leading-[79px]">
+            <PageContainer className="flex flex-col items-center justify-center gap-4 text-center">
+                <h2 className="lg:text-[66px] md:text-4xl text-3xl lg:leading-[79px]">
                     Big Names are coming soon
                 </h2>
 
@@ -27,13 +45,17 @@ export function CreatorsSection({ className, ...props }: CreatorsSectionProps) {
                 </p>
             </PageContainer>
 
-            <Image
-                src={creatorsSectionImg}
-                alt="creators-section"
-                className="w-full object-cover"
-            />
+            <div className="overflow-x-auto hide-scrollbar">
+                <div className="w-[400%] md:w-[300%] lg:w-[280%]">
+                    <Image
+                        src={creatorsSectionImg}
+                        alt="creators-section"
+                        className="w-full h-auto"
+                    />
+                </div>
+            </div>
 
-            <PageContainer className="flex flex-wrap items-center justify-center gap-5 pt-8">
+            <PageContainer className="flex flex-wrap items-center justify-center gap-5 pt-4 md:pt-8">
                 <Button
                     variant="outline"
                     className="flex items-center justify-center gap-2"

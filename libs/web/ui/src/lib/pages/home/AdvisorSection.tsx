@@ -12,7 +12,7 @@ export function AdvisorSection({ className, ...props }: AdvisorSectionProps) {
     return (
         <section id="advisor-section" className={cn(className)} {...props}>
             <PageContainer className="flex flex-col items-center text-center justify-center gap-5">
-                <h2 className="text-[66px] leading-[79px]">
+                <h2 className="lg:text-[66px] md:text-4xl text-3xl lg:leading-[79px]">
                     Learning from the best
                 </h2>
 
@@ -21,7 +21,7 @@ export function AdvisorSection({ className, ...props }: AdvisorSectionProps) {
                     invaluable insights.
                 </p>
 
-                <div className="flex justify-center items-start gap-20">
+                <div className="flex justify-center items-start gap-10 xl:gap-20 flex-wrap">
                     <AdvisorCard
                         name="Beeman"
                         descriptionLines={[

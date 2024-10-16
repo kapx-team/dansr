@@ -1,8 +1,7 @@
-import { CreatorsSection } from "@dansr/web-ui";
+import { CreatorsSection, Header } from "@dansr/web-ui";
 import {
     AdvisorSection,
     Footer,
-    Header,
     HeroSection,
     RadarSection,
     TeamSection,
@@ -23,13 +22,13 @@ export default function HomePage() {
 
             <HeroSection />
 
-            <RadarSection className="mt-80" />
+            <RadarSection className="mt-16 md:mt-36 lg:mt-80" />
 
-            <TeamSection className="mt-44" />
+            <TeamSection className="mt-16 md:mt-24 lg:mt-44" />
 
-            <AdvisorSection className="mt-28" />
+            <AdvisorSection className="mt-16 md:mt-24 lg:mt-28" />
 
-            <CreatorsSection className="mt-28 mb-10" />
+            <CreatorsSection className="mt-14 md:mt-20 lg:mt-28 mb-10" />
 
             <Footer />
         </div>
