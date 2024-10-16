@@ -14,7 +14,7 @@ export function HeroSection() {
             <Image
                 src={creatorAvatar1Img}
                 alt="creator-avatar-1"
-                className="absolute top-[340px] lg:top-[560px] left-0 lg:left-[140px] h-[85px] w-[85px] md:h-[120px] md:w-[120px] lg:h-[200px] lg:w-[200px]"
+                className="absolute top-[340px] lg:top-[560px] left-0 lg:left-[140px] h-[85px] w-[85px] md:h-[120px] md:w-[120px] lg:h-[200px] lg:w-[200px] xl:h-[250px] xl:w-[250px]"
             />
 
             <Image
